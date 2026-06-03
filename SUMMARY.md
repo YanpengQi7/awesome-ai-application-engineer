@@ -4,6 +4,7 @@
 - [Roadmap](ROADMAP.md)
 - [30-Day Plan](checklists/30-day-plan.md)
 - [Start Here](docs/00-start-here.md)
+- [AI Application Foundations](docs/00-foundations.md)
 - [LLM Basics](docs/01-llm-basics.md)
 - [Prompt Engineering](docs/02-prompt-engineering.md)
 - [RAG](docs/03-rag.md)

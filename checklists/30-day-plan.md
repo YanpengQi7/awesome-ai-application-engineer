@@ -9,13 +9,13 @@
 - 不懂的概念先记下来，不要卡死在理论里
 - 第 14 天、第 21 天、第 30 天做阶段复盘
 
-## Week 1：LLM 和 Prompt 入门
+## Week 1：基础、LLM 和 Prompt 入门
 
 | Day | 任务 | 输出物 |
 | --- | --- | --- |
-| 1 | 阅读 Start Here，理解 AI 应用工程师学习路线 | 一页学习笔记 |
-| 2 | 完成一次模型 API 调用 | 一个最小聊天脚本 |
-| 3 | 理解 Token、上下文窗口、temperature | 参数实验记录 |
+| 1 | 阅读 Start Here 和 Foundations，画出 AI 应用数据流 | 一页学习笔记和数据流图 |
+| 2 | 复习 API、JSON、环境变量和日志，完成一次模型 API 调用 | 一个最小聊天脚本 |
+| 3 | 理解 Token、上下文窗口、temperature 和模型输出校验 | 参数实验记录 |
 | 4 | 写 3 个不同任务的 Prompt | Prompt 模板 |
 | 5 | 让模型输出 JSON 并做解析校验 | JSON 输出脚本 |
 | 6 | 收集 5 个模型答错的案例 | bad case 表 |

@@ -17,6 +17,7 @@
 ## 快速入口
 
 - 新手从这里开始：[Start Here](docs/00-start-here.md)
+- 学习前的基础铺垫：[AI Application Foundations](docs/00-foundations.md)
 - 30 天学习任务：[30-Day Plan](checklists/30-day-plan.md)
 - 项目实战列表：[Projects](projects/README.md)
 - 最小代码示例：[Examples](examples/README.md)
@@ -60,7 +61,8 @@
 
 ```mermaid
 flowchart LR
-    A["Start Here<br/>环境与基础概念"] --> B["LLM Basics<br/>Token、上下文、幻觉"]
+    A["Start Here<br/>学习地图"] --> A1["Foundations<br/>API、JSON、数据流"]
+    A1 --> B["LLM Basics<br/>Token、上下文、幻觉"]
     B --> C["Prompt Engineering<br/>结构化指令与输出"]
     C --> D["RAG<br/>文档问答与知识库"]
     D --> E["Agent<br/>工具调用与任务执行"]
@@ -74,7 +76,7 @@ flowchart LR
 
 | 阶段 | 目标 | 推荐内容 | 输出物 |
 | --- | --- | --- | --- |
-| 0. 入门准备 | 建立基本概念和工具环境 | [Start Here](docs/00-start-here.md) | 一个最小聊天 Demo |
+| 0. 入门准备 | 建立学习地图、工程基础和工具环境 | [Start Here](docs/00-start-here.md)、[AI Application Foundations](docs/00-foundations.md) | 一个最小聊天 Demo 和一张数据流图 |
 | 1. LLM 基础 | 理解模型能力、上下文、Token、幻觉、成本 | [LLM Basics](docs/01-llm-basics.md) | 能解释一次 API 调用发生了什么 |
 | 2. Prompt Engineering | 会设计稳定、可复用、可评测的提示词 | [Prompt Engineering](docs/02-prompt-engineering.md) | 一套可复用 Prompt 模板 |
 | 3. RAG | 构建知识库、文档问答和检索增强系统 | [RAG](docs/03-rag.md) | 个人知识库问答助手 |
@@ -129,6 +131,7 @@ flowchart LR
 │   └── 30-day-plan.md
 ├── docs/
 │   ├── 00-start-here.md
+│   ├── 00-foundations.md
 │   ├── 01-llm-basics.md
 │   ├── 02-prompt-engineering.md
 │   ├── 03-rag.md
@@ -157,7 +160,7 @@ flowchart LR
 
 ## 怎么使用这个仓库
 
-1. 如果你是新手，从 [Start Here](docs/00-start-here.md) 开始。
+1. 如果你是新手，从 [Start Here](docs/00-start-here.md) 和 [AI Application Foundations](docs/00-foundations.md) 开始。
 2. 如果你已经会调用模型 API，直接进入 [RAG](docs/03-rag.md) 和 [Agent](docs/04-agent.md)。
 3. 如果你想做作品集，优先完成 [Projects](projects/README.md) 中的 3 个项目。
 4. 如果你要准备面试，把 [Interview](docs/09-interview.md) 和 [FAQ](docs/11-faq.md) 过一遍。
@@ -171,6 +174,7 @@ flowchart LR
 
 ```text
 Start Here
+  -> AI Application Foundations
   -> LLM Basics
   -> Prompt Engineering
   -> RAG

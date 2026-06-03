@@ -18,7 +18,10 @@
 
 - 新手从这里开始：[Start Here](docs/00-start-here.md)
 - 学习前的基础铺垫：[AI Application Foundations](docs/00-foundations.md)
+- 从 0 到 1 教程：[Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/README.md)
 - 30 天学习任务：[30-Day Plan](checklists/30-day-plan.md)
+- RAG 上线检查：[RAG Production Checklist](checklists/rag-production-checklist.md)
+- RAG 失败案例库：[RAG Bad Cases](bad-cases/rag-bad-cases.md)
 - 项目实战列表：[Projects](projects/README.md)
 - 最小代码示例：[Examples](examples/README.md)
 - 面试准备：[Interview](docs/09-interview.md)
@@ -30,6 +33,7 @@
 - [适合谁](#适合谁)
 - [学习路线图](#学习路线图)
 - [学习路线](#学习路线)
+- [可以直接拿来用的内容](#可以直接拿来用的内容)
 - [新手 30 天学习计划](#新手-30-天学习计划)
 - [项目实战](#项目实战)
 - [怎么使用这个仓库](#怎么使用这个仓库)
@@ -87,6 +91,18 @@ flowchart LR
 | 8. AI Coding | 用 AI 工具提高开发效率 | [AI Coding](docs/08-ai-coding.md) | 一套个人 AI 编程工作流 |
 | 9. Interview | 准备 AI 应用工程面试 | [Interview](docs/09-interview.md) | 可讲清楚的项目经历 |
 
+## 可以直接拿来用的内容
+
+| 类型 | 内容 | 适合谁 |
+| --- | --- | --- |
+| 端到端教程 | [Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/README.md) | 想跟着做出第一个 RAG 项目的人 |
+| 上线清单 | [RAG Production Checklist](checklists/rag-production-checklist.md) | 正在把 RAG demo 推向生产的人 |
+| 安全清单 | [Agent Safety Checklist](checklists/agent-safety-checklist.md) | 正在设计工具调用和 Agent 的人 |
+| Prompt 清单 | [Prompt Review Checklist](checklists/prompt-review-checklist.md) | 想让 Prompt 更稳定、可评测的人 |
+| 失败案例 | [RAG Bad Cases](bad-cases/rag-bad-cases.md) | 想理解 RAG 常见坑和修复方式的人 |
+| 架构模板 | [AI App Architecture Template](templates/ai-app-architecture-template.md) | 写项目 README、方案和面试讲解的人 |
+| 评测模板 | [Eval Dataset Template](templates/eval-dataset-template.csv) | 准备 AI 应用评测集的人 |
+
 ## 最小代码示例
 
 | 示例 | 覆盖能力 | 入口 |
@@ -128,7 +144,12 @@ flowchart LR
 ├── SUMMARY.md
 ├── ROADMAP.md
 ├── checklists/
-│   └── 30-day-plan.md
+│   ├── 30-day-plan.md
+│   ├── agent-safety-checklist.md
+│   ├── prompt-review-checklist.md
+│   └── rag-production-checklist.md
+├── bad-cases/
+│   └── rag-bad-cases.md
 ├── docs/
 │   ├── 00-start-here.md
 │   ├── 00-foundations.md
@@ -145,6 +166,8 @@ flowchart LR
 │   └── 11-faq.md
 ├── projects/
 │   └── README.md
+├── tutorials/
+│   └── build-personal-knowledge-base/
 ├── examples/
 │   ├── minimal-rag/
 │   ├── tool-calling/
@@ -152,6 +175,8 @@ flowchart LR
 ├── resources/
 │   └── awesome-ai-resources.md
 ├── templates/
+│   ├── ai-app-architecture-template.md
+│   ├── eval-dataset-template.csv
 │   ├── project-readme-template.md
 │   └── prompt-template.md
 ├── CONTRIBUTING.md
@@ -161,10 +186,11 @@ flowchart LR
 ## 怎么使用这个仓库
 
 1. 如果你是新手，从 [Start Here](docs/00-start-here.md) 和 [AI Application Foundations](docs/00-foundations.md) 开始。
-2. 如果你已经会调用模型 API，直接进入 [RAG](docs/03-rag.md) 和 [Agent](docs/04-agent.md)。
-3. 如果你想做作品集，优先完成 [Projects](projects/README.md) 中的 3 个项目。
-4. 如果你要准备面试，把 [Interview](docs/09-interview.md) 和 [FAQ](docs/11-faq.md) 过一遍。
-5. 如果你想贡献内容，先看 [CONTRIBUTING.md](CONTRIBUTING.md)。
+2. 如果你想跟着做项目，进入 [Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/README.md)。
+3. 如果你已经会调用模型 API，直接进入 [RAG](docs/03-rag.md) 和 [Agent](docs/04-agent.md)。
+4. 如果你想做作品集，优先完成 [Projects](projects/README.md) 中的 3 个项目，并使用 [AI App Architecture Template](templates/ai-app-architecture-template.md) 写清楚架构。
+5. 如果你要准备面试，把 [Interview](docs/09-interview.md)、[FAQ](docs/11-faq.md) 和 [RAG Bad Cases](bad-cases/rag-bad-cases.md) 过一遍。
+6. 如果你想贡献内容，先看 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 更新计划
 
@@ -182,6 +208,7 @@ Start Here
   -> MCP
   -> Evaluation
   -> Production
+  -> Tutorials / Checklists / Bad Cases
   -> Projects
 ```
 

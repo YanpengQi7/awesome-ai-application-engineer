@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evaluation · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/docs/06-evaluation.md">Edit on GitHub</a>
+      </div>
+      <h1>Evaluation</h1>
+<p>没有评测，就无法知道 AI 应用是不是真的变好了。大模型应用的评测要同时关注质量、事实性、稳定性、延迟、成本和安全。</p>
+<h2>为什么 AI 应用更需要评测</h2>
+<p>传统软件很多逻辑是确定的，输入相同通常输出相同。AI 应用不同：模型、Prompt、上下文、检索结果、工具调用和参数变化都可能影响输出。</p>
+<p>如果没有评测，你会遇到这些问题：</p>
+<ul>
+<li>改了 Prompt，不知道整体效果是变好还是变差。</li>
+<li>换了模型，只看少数样例就上线。</li>
+<li>RAG 看起来回答不错，但引用其实不支持结论。</li>
+<li>Agent 最终答对了，但中间越权调用了工具。</li>
+<li>成本下降了，但质量也悄悄下降。</li>
+</ul>
+<p>评测不是最后一步，而是每次迭代的安全网。</p>
+<h2>评测维度</h2>
+<table>
+<tr>
+<th>维度</th>
+<th>说明</th>
+</tr>
+<tr>
+<td>Correctness</td>
+<td>答案是否正确</td>
+</tr>
+<tr>
+<td>Faithfulness</td>
+<td>是否忠实于给定上下文</td>
+</tr>
+<tr>
+<td>Completeness</td>
+<td>是否覆盖用户问题的关键点</td>
+</tr>
+<tr>
+<td>Format</td>
+<td>是否符合输出格式</td>
+</tr>
+<tr>
+<td>Safety</td>
+<td>是否避免越权、泄密和危险建议</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>响应时间是否可接受</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>单次请求成本是否可控</td>
+</tr>
+</table>
+<h2>离线评测和在线评测</h2>
+<table>
+<tr>
+<th>类型</th>
+<th>适合回答的问题</th>
+</tr>
+<tr>
+<td>离线评测</td>
+<td>修改前后哪个版本更好</td>
+</tr>
+<tr>
+<td>在线反馈</td>
+<td>真实用户是否满意</td>
+</tr>
+<tr>
+<td>A/B 测试</td>
+<td>两个方案在真实流量中哪个更有效</td>
+</tr>
+<tr>
+<td>人工抽检</td>
+<td>高风险或高价值结果是否可信</td>
+</tr>
+</table>
+<p>早期项目先做离线评测，因为成本低、可重复。上线后再逐步加入在线反馈和抽检。</p>
+<h2>最小评测集</h2>
+<p>建议从 30 到 50 条真实问题开始：</p>
+<ul>
+<li>20 条常见成功问题</li>
+<li>10 条边界问题</li>
+<li>10 条应该拒答的问题</li>
+<li>10 条历史 bad case</li>
+</ul>
+<h2>如何收集评测用例</h2>
+<p>评测集最好来自真实场景：</p>
+<ul>
+<li>用户实际问过的问题。</li>
+<li>产品经理和客服整理的高频问题。</li>
+<li>历史线上事故和 bad case。</li>
+<li>业务专家认为必须答对的问题。</li>
+<li>权限、拒答、敏感信息等安全用例。</li>
+</ul>
+<p>每条用例都应该有标签，方便按类型分析。例如 <code>pricing</code>、<code>policy</code>、<code>edge</code>、<code>refusal</code>、<code>permission</code>。</p>
+<h2>评测集应该长什么样</h2>
+<p>可以用表格或 JSON 保存：</p>
+<table>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+<tr>
+<td>id</td>
+<td>用例编号</td>
+</tr>
+<tr>
+<td>question</td>
+<td>用户问题</td>
+</tr>
+<tr>
+<td>expected_behavior</td>
+<td>期望行为</td>
+</tr>
+<tr>
+<td>reference_answer</td>
+<td>参考答案</td>
+</tr>
+<tr>
+<td>required_sources</td>
+<td>必须引用的资料</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>分类，例如 easy、edge、refusal</td>
+</tr>
+</table>
+<p>不要追求一开始就完美。先把真实用户会问的问题收集起来，比空想 100 条问题更有价值。</p>
+<p>示例 JSON：</p>
+<pre><code>{
+  &quot;id&quot;: &quot;rag_policy_001&quot;,
+  &quot;question&quot;: &quot;入职半年有年假吗？&quot;,
+  &quot;expected_behavior&quot;: &quot;基于员工手册回答，并说明不足一年不享有年假&quot;,
+  &quot;reference_answer&quot;: &quot;入职满一年后才享有年假。&quot;,
+  &quot;required_sources&quot;: [&quot;employee_handbook#vacation&quot;],
+  &quot;tags&quot;: [&quot;policy&quot;, &quot;rag&quot;, &quot;easy&quot;]
+}</code></pre>
+<h2>评测方式</h2>
+<ul>
+<li>规则校验：JSON schema、字段完整性、引用格式</li>
+<li>人工评分：适合早期和高价值场景</li>
+<li>LLM-as-judge：适合批量对比，但需要抽检</li>
+<li>A/B 测试：适合线上 prompt、模型和检索策略对比</li>
+</ul>
+<h2>不同任务怎么评测</h2>
+<table>
+<tr>
+<th>任务</th>
+<th>重点指标</th>
+</tr>
+<tr>
+<td>分类</td>
+<td>准确率、混淆矩阵、人工复核率</td>
+</tr>
+<tr>
+<td>信息抽取</td>
+<td>字段准确率、缺失率、格式合法率</td>
+</tr>
+<tr>
+<td>RAG 问答</td>
+<td>检索命中率、忠实度、引用准确性、拒答准确性</td>
+</tr>
+<tr>
+<td>Agent</td>
+<td>工具选择、参数正确性、完成率、越权率</td>
+</tr>
+<tr>
+<td>内容生成</td>
+<td>可读性、完整性、风格一致性、人工满意度</td>
+</tr>
+</table>
+<p>不同任务不要用同一套粗糙分数。评测维度应该服务于业务风险。</p>
+<h2>项目检查点</h2>
+<ul>
+<li>每次改 prompt 是否跑评测</li>
+<li>每次换模型是否比较质量和成本</li>
+<li>是否保留 bad case</li>
+<li>是否能复现线上问题</li>
+<li>是否有人工复核入口</li>
+</ul>
+<h2>LLM-as-judge 注意事项</h2>
+<p>用模型当裁判很方便，但不能完全相信。</p>
+<p>建议做法：</p>
+<ul>
+<li>给裁判模型清晰评分标准</li>
+<li>每个维度单独打分</li>
+<li>要求输出理由</li>
+<li>抽样人工复核</li>
+<li>不要让同一个模型既回答又评分</li>
+<li>对高风险业务保留人工审核</li>
+</ul>
+<h2>Judge Prompt 示例</h2>
+<pre><code>你是 AI 应用评测员。请根据用户问题、参考资料和模型回答评分。
+
+评分维度：
+- correctness：回答是否正确
+- faithfulness：是否只基于参考资料
+- completeness：是否覆盖关键点
+- format：是否符合要求
+
+请输出 JSON：
+{
+  &quot;correctness&quot;: 1-5,
+  &quot;faithfulness&quot;: 1-5,
+  &quot;completeness&quot;: 1-5,
+  &quot;format&quot;: 1-5,
+  &quot;reason&quot;: &quot;简短说明&quot;
+}</code></pre>
+<p>Judge Prompt 要尽量稳定，不要让裁判自由发挥。</p>
+<h2>一个简单评分标准</h2>
+<table>
+<tr>
+<th>分数</th>
+<th>含义</th>
+</tr>
+<tr>
+<td>5</td>
+<td>完全正确，引用充分，格式符合</td>
+</tr>
+<tr>
+<td>4</td>
+<td>基本正确，有轻微遗漏</td>
+</tr>
+<tr>
+<td>3</td>
+<td>部分正确，但影响使用</td>
+</tr>
+<tr>
+<td>2</td>
+<td>主要结论错误</td>
+</tr>
+<tr>
+<td>1</td>
+<td>答非所问或严重编造</td>
+</tr>
+</table>
+<h2>线上反馈闭环</h2>
+<p>上线后应该记录：</p>
+<ul>
+<li>用户问题</li>
+<li>检索到的文档片段</li>
+<li>模型回答</li>
+<li>模型和 prompt 版本</li>
+<li>延迟和成本</li>
+<li>用户是否点赞、点踩或追问</li>
+<li>人工标注的失败原因</li>
+</ul>
+<h2>分析评测结果</h2>
+<p>不要只看平均分。平均分会掩盖关键问题。建议同时看：</p>
+<ul>
+<li>哪些标签下降最多。</li>
+<li>哪些问题从通过变成失败。</li>
+<li>失败是否集中在某类文档、某个工具、某种输出格式。</li>
+<li>成本下降是否伴随质量下降。</li>
+<li>延迟增加是否来自检索、rerank 还是模型输出。</li>
+</ul>
+<p>评测的价值不只是给分，而是帮助你定位下一步该改哪里。</p>
+<h2>实战练习</h2>
+<ul>
+<li>为个人知识库项目准备 30 条评测问题。</li>
+<li>给每条问题打上 easy、edge、refusal、bad_case 标签。</li>
+<li>写一个脚本检查 JSON 输出格式是否合法。</li>
+<li>用人工评分和 LLM-as-judge 分别评测 10 条回答，对比差异。</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

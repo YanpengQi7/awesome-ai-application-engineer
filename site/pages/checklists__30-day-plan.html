@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>30-Day Plan · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/checklists/30-day-plan.md">Edit on GitHub</a>
+      </div>
+      <h1>30-Day Plan</h1>
+<p>这是一份面向新手的 30 天 AI 应用工程学习计划。每天只做一件明确的事，目标不是看完所有资料，而是持续产出可验证的小成果。</p>
+<h2>使用方法</h2>
+<ul>
+<li>每天至少投入 60 到 90 分钟</li>
+<li>每天都要有输出：代码、笔记、截图、测试结果或复盘</li>
+<li>不懂的概念先记下来，不要卡死在理论里</li>
+<li>第 14 天、第 21 天、第 30 天做阶段复盘</li>
+</ul>
+<h2>Week 1：基础、LLM 和 Prompt 入门</h2>
+<table>
+<tr>
+<th>Day</th>
+<th>任务</th>
+<th>输出物</th>
+</tr>
+<tr>
+<td>1</td>
+<td>阅读 Start Here 和 Foundations，画出 AI 应用数据流</td>
+<td>一页学习笔记和数据流图</td>
+</tr>
+<tr>
+<td>2</td>
+<td>复习 API、JSON、环境变量和日志，完成一次模型 API 调用</td>
+<td>一个最小聊天脚本</td>
+</tr>
+<tr>
+<td>3</td>
+<td>理解 Token、上下文窗口、temperature 和模型输出校验</td>
+<td>参数实验记录</td>
+</tr>
+<tr>
+<td>4</td>
+<td>写 3 个不同任务的 Prompt</td>
+<td>Prompt 模板</td>
+</tr>
+<tr>
+<td>5</td>
+<td>让模型输出 JSON 并做解析校验</td>
+<td>JSON 输出脚本</td>
+</tr>
+<tr>
+<td>6</td>
+<td>收集 5 个模型答错的案例</td>
+<td>bad case 表</td>
+</tr>
+<tr>
+<td>7</td>
+<td>复盘 Week 1</td>
+<td>一篇周总结</td>
+</tr>
+</table>
+<h2>Week 2：RAG 入门</h2>
+<table>
+<tr>
+<th>Day</th>
+<th>任务</th>
+<th>输出物</th>
+</tr>
+<tr>
+<td>8</td>
+<td>阅读 RAG 文档，画出基本链路</td>
+<td>RAG 流程图</td>
+</tr>
+<tr>
+<td>9</td>
+<td>准备 3 篇文档作为知识库</td>
+<td>测试文档集</td>
+</tr>
+<tr>
+<td>10</td>
+<td>实现简单文档切分</td>
+<td>chunk 列表</td>
+</tr>
+<tr>
+<td>11</td>
+<td>实现关键词或向量检索</td>
+<td>检索 demo</td>
+</tr>
+<tr>
+<td>12</td>
+<td>把检索结果放进 Prompt 回答</td>
+<td>RAG 最小版本</td>
+</tr>
+<tr>
+<td>13</td>
+<td>给回答加引用来源</td>
+<td>带引用回答</td>
+</tr>
+<tr>
+<td>14</td>
+<td>准备 20 条问题测试 RAG</td>
+<td>RAG 评测表</td>
+</tr>
+</table>
+<h2>Week 3：Agent、Tool Calling 和 MCP</h2>
+<table>
+<tr>
+<th>Day</th>
+<th>任务</th>
+<th>输出物</th>
+</tr>
+<tr>
+<td>15</td>
+<td>阅读 Agent 文档，理解工具调用</td>
+<td>Agent 笔记</td>
+</tr>
+<tr>
+<td>16</td>
+<td>设计一个工具 schema</td>
+<td>工具定义</td>
+</tr>
+<tr>
+<td>17</td>
+<td>实现一个可调用工具</td>
+<td>Tool Calling demo</td>
+</tr>
+<tr>
+<td>18</td>
+<td>让模型根据问题选择工具</td>
+<td>工具调用日志</td>
+</tr>
+<tr>
+<td>19</td>
+<td>阅读 MCP 文档</td>
+<td>MCP 笔记</td>
+</tr>
+<tr>
+<td>20</td>
+<td>实现只读文件搜索 MCP Server</td>
+<td>MCP 最小项目</td>
+</tr>
+<tr>
+<td>21</td>
+<td>复盘 Week 3</td>
+<td>Agent/MCP 总结</td>
+</tr>
+</table>
+<h2>Week 4：评测、上线和作品集</h2>
+<table>
+<tr>
+<th>Day</th>
+<th>任务</th>
+<th>输出物</th>
+</tr>
+<tr>
+<td>22</td>
+<td>阅读 Evaluation 文档</td>
+<td>评测维度表</td>
+</tr>
+<tr>
+<td>23</td>
+<td>为项目准备 30 条测试问题</td>
+<td>eval dataset</td>
+</tr>
+<tr>
+<td>24</td>
+<td>比较两个 Prompt 或模型</td>
+<td>对比结果</td>
+</tr>
+<tr>
+<td>25</td>
+<td>阅读 Production 文档</td>
+<td>上线检查表</td>
+</tr>
+<tr>
+<td>26</td>
+<td>给项目加日志和成本统计</td>
+<td>运行日志</td>
+</tr>
+<tr>
+<td>27</td>
+<td>部署一个最小可用版本</td>
+<td>在线地址或截图</td>
+</tr>
+<tr>
+<td>28</td>
+<td>写项目 README</td>
+<td>项目说明文档</td>
+</tr>
+<tr>
+<td>29</td>
+<td>准备面试讲述稿</td>
+<td>项目讲述稿</td>
+</tr>
+<tr>
+<td>30</td>
+<td>总复盘并规划下一个项目</td>
+<td>30 天总结</td>
+</tr>
+</table>
+<h2>30 天后你应该拥有</h2>
+<ul>
+<li>一个最小聊天应用</li>
+<li>一个 RAG 问答系统</li>
+<li>一个 Tool Calling demo</li>
+<li>一个 MCP Server demo</li>
+<li>一份评测集</li>
+<li>一份项目 README</li>
+<li>一套可以写进简历的项目经历</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

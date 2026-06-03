@@ -65,6 +65,10 @@ a:hover {
   padding: 56px 24px 42px;
 }
 
+.hero.compact {
+  padding: 34px 0 18px;
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--brand-dark);
@@ -207,6 +211,15 @@ pre {
 
 code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+p code,
+li code,
+td code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef2ff;
+  color: #1e2a5a;
 }
 
 table {

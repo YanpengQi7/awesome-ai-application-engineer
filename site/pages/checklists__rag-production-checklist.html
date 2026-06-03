@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAG Production Checklist · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/checklists/rag-production-checklist.md">Edit on GitHub</a>
+      </div>
+      <h1>RAG Production Checklist</h1>
+<p>这份清单用于检查一个 RAG 应用是否接近生产可用。它适合上线前 review，也适合面试和项目复盘。</p>
+<h2>文档导入</h2>
+<ul>
+<li>[ ] 支持明确的文档来源记录</li>
+<li>[ ] 文档解析后保留标题、章节、页码等结构</li>
+<li>[ ] 清理页眉、页脚、导航、广告和重复内容</li>
+<li>[ ] 表格、代码块、列表没有被随意打散</li>
+<li>[ ] 文档更新后能重新索引</li>
+<li>[ ] 删除文档后能删除对应 chunk 和 embedding</li>
+<li>[ ] 文档导入失败有错误日志</li>
+</ul>
+<h2>Chunk 和 Metadata</h2>
+<ul>
+<li>[ ] chunk 大小经过评测，而不是随便设置</li>
+<li>[ ] chunk 保留父级标题或章节路径</li>
+<li>[ ] 相邻 chunk 有合理重叠</li>
+<li>[ ] 每个 chunk 有稳定 <code>chunk_id</code></li>
+<li>[ ] 每个 chunk 有 <code>source</code>、<code>title</code>、<code>section</code>、<code>page</code> 等 metadata</li>
+<li>[ ] 权限信息在导入或索引阶段写入 metadata</li>
+<li>[ ] 可以根据文档类型使用不同 chunk 策略</li>
+</ul>
+<h2>Embedding 和索引</h2>
+<ul>
+<li>[ ] 记录 embedding 模型名称和版本</li>
+<li>[ ] chunk 内容变化后会重新生成 embedding</li>
+<li>[ ] embedding 生成失败可以重试</li>
+<li>[ ] 索引构建过程有进度和错误记录</li>
+<li>[ ] 支持增量更新，而不是每次全量重建</li>
+<li>[ ] 有索引备份或回滚方案</li>
+</ul>
+<h2>检索</h2>
+<ul>
+<li>[ ] 支持 top-k 配置</li>
+<li>[ ] 支持 metadata filter</li>
+<li>[ ] 权限过滤发生在生成回答之前</li>
+<li>[ ] 能打印或查看每次检索到的 chunk</li>
+<li>[ ] 有关键词检索、向量检索或混合检索策略说明</li>
+<li>[ ] 对多轮问题做 query rewrite 或问题补全</li>
+<li>[ ] 检索分数过低时进入拒答或降级逻辑</li>
+</ul>
+<h2>Rerank 和上下文组装</h2>
+<ul>
+<li>[ ] rerank 前后结果可对比</li>
+<li>[ ] 上下文不会塞入过多无关 chunk</li>
+<li>[ ] 保留 chunk 来源，方便回答引用</li>
+<li>[ ] 对重复 chunk 做去重</li>
+<li>[ ] 对超长上下文有压缩或裁剪策略</li>
+<li>[ ] 重要 metadata 不会在组装 Prompt 时丢失</li>
+</ul>
+<h2>Prompt 和回答</h2>
+<ul>
+<li>[ ] Prompt 明确要求只基于资料回答</li>
+<li>[ ] Prompt 明确信息不足时如何拒答</li>
+<li>[ ] 输出格式稳定，便于解析</li>
+<li>[ ] 回答中包含引用来源</li>
+<li>[ ] 引用能支持对应结论</li>
+<li>[ ] 不把系统规则、密钥或内部调试信息暴露给用户</li>
+</ul>
+<h2>评测</h2>
+<ul>
+<li>[ ] 至少有 30 到 50 条评测问题</li>
+<li>[ ] 评测集包含成功、边界、拒答和 bad case</li>
+<li>[ ] 单独评测检索命中率</li>
+<li>[ ] 单独评测答案忠实度</li>
+<li>[ ] 单独评测引用准确性</li>
+<li>[ ] 每次修改 chunk、Prompt、模型或 top-k 后跑回归</li>
+<li>[ ] 评测结果可追踪版本</li>
+</ul>
+<h2>权限和安全</h2>
+<ul>
+<li>[ ] 用户只能检索自己有权访问的文档</li>
+<li>[ ] 后端做权限校验，而不是只靠 Prompt</li>
+<li>[ ] 日志中敏感信息已脱敏</li>
+<li>[ ] 外部文档中的指令不会被当作系统指令执行</li>
+<li>[ ] 防范 prompt injection</li>
+<li>[ ] 高风险场景有人审或二次确认</li>
+</ul>
+<h2>观测和成本</h2>
+<ul>
+<li>[ ] 记录用户问题、检索结果、模型回答和引用</li>
+<li>[ ] 记录模型名称、Prompt 版本、token、延迟和成本</li>
+<li>[ ] 记录检索耗时、rerank 耗时和模型耗时</li>
+<li>[ ] 有用户反馈入口</li>
+<li>[ ] bad case 能进入评测集</li>
+<li>[ ] 有速率限制和预算控制</li>
+</ul>
+<h2>上线前最终确认</h2>
+<ul>
+<li>[ ] 本地和线上环境变量分离</li>
+<li>[ ] API Key 没有提交到 Git</li>
+<li>[ ] 有超时、重试和降级策略</li>
+<li>[ ] 有基础监控和告警</li>
+<li>[ ] 有回滚方案</li>
+<li>[ ] README 写清楚架构、运行方式和限制</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

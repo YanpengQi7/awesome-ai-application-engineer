@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/projects/README.md">Edit on GitHub</a>
+      </div>
+      <h1>Projects</h1>
+<p>项目是学习 AI 应用工程最短的路。下面的项目按难度排序，每个项目都可以单独放进作品集。</p>
+<h2>怎么选项目</h2>
+<p>如果你是新手，不要一上来做“万能 Agent 平台”。先选一个边界清晰、数据可控、能在一周内做出最小版本的项目。</p>
+<p>推荐顺序：</p>
+<ul>
+<li>个人知识库问答助手</li>
+<li>AI 简历优化助手</li>
+<li>GitHub 仓库代码问答</li>
+<li>Agent 自动周报助手</li>
+<li>MCP 本地工具箱</li>
+<li>企业客服质检系统</li>
+</ul>
+<p>每个项目都建议保留：</p>
+<ul>
+<li>项目 README</li>
+<li>架构图</li>
+<li>核心代码</li>
+<li>示例输入输出</li>
+<li>评测集</li>
+<li>部署说明</li>
+<li>失败案例和优化记录</li>
+</ul>
+<h2>1. 个人知识库问答助手</h2>
+<p>目标：构建一个能上传文档并基于文档回答问题的 RAG 应用。</p>
+<p>核心功能：</p>
+<ul>
+<li>上传 Markdown、PDF 或网页内容</li>
+<li>文档解析、切分、向量化</li>
+<li>相似度检索和引用来源</li>
+<li>无法回答时明确拒答</li>
+<li>用户反馈和 bad case 记录</li>
+</ul>
+<p>你会学到：</p>
+<ul>
+<li>RAG 基础链路</li>
+<li>Chunking 策略</li>
+<li>向量数据库</li>
+<li>引用和忠实度评测</li>
+</ul>
+<p>推荐技术栈：</p>
+<ul>
+<li>后端：FastAPI 或 Next.js API Routes</li>
+<li>数据库：PostgreSQL + pgvector</li>
+<li>文档解析：PyMuPDF、MarkItDown 或 Unstructured</li>
+<li>前端：Next.js</li>
+<li>部署：Vercel、Railway、Render 或自建服务器</li>
+</ul>
+<p>最小版本验收：</p>
+<ul>
+<li>能上传 3 个文档</li>
+<li>能问 10 个和文档相关的问题</li>
+<li>回答中能显示来源</li>
+<li>文档里没有答案时能拒答</li>
+<li>有一个简单评测表记录效果</li>
+</ul>
+<h2>2. GitHub 仓库代码问答</h2>
+<p>目标：让 AI 能阅读一个代码仓库，并回答架构、函数、模块依赖和变更影响。</p>
+<p>核心功能：</p>
+<ul>
+<li>扫描代码文件</li>
+<li>按语言和目录建立索引</li>
+<li>支持按文件、函数、关键词检索</li>
+<li>回答中引用文件路径</li>
+<li>支持“如果改这里会影响哪里”的问题</li>
+</ul>
+<p>你会学到：</p>
+<ul>
+<li>代码文件解析</li>
+<li>代码 chunking</li>
+<li>按路径、符号和语义混合检索</li>
+<li>长上下文压缩</li>
+<li>面向代码的引用格式</li>
+</ul>
+<p>进阶功能：</p>
+<ul>
+<li>支持多语言仓库</li>
+<li>生成模块依赖图</li>
+<li>对 Pull Request 做变更影响分析</li>
+<li>自动生成代码阅读笔记</li>
+</ul>
+<p>最小版本验收：</p>
+<ul>
+<li>能索引一个小型 GitHub 仓库</li>
+<li>能回答“项目入口在哪里”</li>
+<li>能回答“某个函数做什么”</li>
+<li>回答能引用文件路径</li>
+</ul>
+<h2>3. AI 简历优化助手</h2>
+<p>目标：根据岗位 JD 和用户简历，生成优化建议和匹配度评分。</p>
+<p>核心功能：</p>
+<ul>
+<li>JD 信息抽取</li>
+<li>简历结构化解析</li>
+<li>匹配度评分</li>
+<li>针对性改写建议</li>
+<li>多版本简历生成</li>
+</ul>
+<p>你会学到：</p>
+<ul>
+<li>非结构化文本抽取</li>
+<li>多维度评分</li>
+<li>结构化输出</li>
+<li>生成内容的人类可编辑性</li>
+</ul>
+<p>评分维度示例：</p>
+<ul>
+<li>技能匹配</li>
+<li>项目经历匹配</li>
+<li>关键词覆盖</li>
+<li>表达清晰度</li>
+<li>可量化成果</li>
+</ul>
+<p>最小版本验收：</p>
+<ul>
+<li>输入一份简历和一个 JD</li>
+<li>输出匹配度评分</li>
+<li>给出 5 条具体优化建议</li>
+<li>生成一版改写后的项目经历</li>
+</ul>
+<h2>4. Agent 自动周报助手</h2>
+<p>目标：自动收集本周工作信息，生成一份可编辑周报。</p>
+<p>核心功能：</p>
+<ul>
+<li>读取任务、日历、提交记录或文档</li>
+<li>自动归类工作事项</li>
+<li>生成周报草稿</li>
+<li>标记信息不足的地方</li>
+<li>支持用户修改后再生成最终版</li>
+</ul>
+<p>你会学到：</p>
+<ul>
+<li>工具调用</li>
+<li>多来源信息整理</li>
+<li>任务规划</li>
+<li>人机协作确认</li>
+<li>输出风格控制</li>
+</ul>
+<p>可接入数据源：</p>
+<ul>
+<li>Git commit</li>
+<li>Jira、Linear、GitHub Issues</li>
+<li>日历</li>
+<li>文档</li>
+<li>手动输入的工作记录</li>
+</ul>
+<p>最小版本验收：</p>
+<ul>
+<li>能读取一周 git commit</li>
+<li>能按项目分类总结</li>
+<li>能生成“完成事项、风险、下周计划”</li>
+<li>信息不足时能标记待补充项</li>
+</ul>
+<h2>5. MCP 本地工具箱</h2>
+<p>目标：开发一个 MCP Server，把本地文件搜索、命令查询或数据库查询暴露给 AI 客户端。</p>
+<p>核心功能：</p>
+<ul>
+<li>定义 MCP 工具</li>
+<li>实现只读文件搜索</li>
+<li>返回结构化结果</li>
+<li>加入错误处理和日志</li>
+<li>接入一个真实客户端测试</li>
+</ul>
+<p>你会学到：</p>
+<ul>
+<li>MCP Server 基本结构</li>
+<li>工具 schema 设计</li>
+<li>权限白名单</li>
+<li>本地工具封装</li>
+<li>AI 客户端集成</li>
+</ul>
+<p>推荐实现的工具：</p>
+<ul>
+<li>search_files</li>
+<li>read_file</li>
+<li>list_directory</li>
+<li>run_readonly_command</li>
+<li>query_sql_readonly</li>
+</ul>
+<p>最小版本验收：</p>
+<ul>
+<li>AI 客户端能发现工具</li>
+<li>能搜索指定目录文件</li>
+<li>不能读取白名单外文件</li>
+<li>调用失败时有清晰错误信息</li>
+</ul>
+<h2>6. 企业客服质检系统</h2>
+<p>目标：批量分析客服对话，识别风险、评分并生成改进建议。</p>
+<p>核心功能：</p>
+<ul>
+<li>对话导入</li>
+<li>标签体系设计</li>
+<li>批量分类和评分</li>
+<li>抽样人工复核</li>
+<li>趋势报表</li>
+</ul>
+<p>你会学到：</p>
+<ul>
+<li>批量 LLM 调用</li>
+<li>标签体系设计</li>
+<li>人工复核流程</li>
+<li>成本控制</li>
+<li>数据分析报表</li>
+</ul>
+<p>标签示例：</p>
+<ul>
+<li>是否解决问题</li>
+<li>是否态度友好</li>
+<li>是否违规承诺</li>
+<li>是否涉及退款</li>
+<li>是否需要升级处理</li>
+</ul>
+<p>最小版本验收：</p>
+<ul>
+<li>导入 100 条对话</li>
+<li>自动打 5 个标签</li>
+<li>输出评分和理由</li>
+<li>支持人工修改标签</li>
+<li>生成一份汇总报告</li>
+</ul>
+<h2>作品集建议</h2>
+<p>优先完成 3 个项目：</p>
+<ul>
+<li>个人知识库问答助手</li>
+<li>Agent 自动周报助手</li>
+<li>MCP 本地工具箱</li>
+</ul>
+<p>这三个项目组合起来，可以证明你掌握 RAG、Agent、MCP 和工程化。</p>
+<h2>项目 README 写法</h2>
+<p>一个好的项目 README 应该回答：</p>
+<ul>
+<li>这个项目解决什么问题</li>
+<li>用户怎么使用</li>
+<li>技术架构是什么</li>
+<li>为什么这么设计</li>
+<li>怎么运行</li>
+<li>怎么评测</li>
+<li>有哪些已知问题</li>
+<li>下一步怎么优化</li>
+</ul>
+<p>可以参考：<a href="./templates__project-readme-template.html">项目 README 模板</a></p>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

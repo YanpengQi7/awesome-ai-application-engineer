@@ -21,6 +21,7 @@
 
 - 新手从这里开始：[Start Here](docs/00-start-here.md)
 - 在线网页版本：[Website](https://yanpengqi7.github.io/awesome-ai-application-engineer/)
+- 在线文档目录：[All Pages](https://yanpengqi7.github.io/awesome-ai-application-engineer/docs.html)
 - 学习前的基础铺垫：[AI Application Foundations](docs/00-foundations.md)
 - 从 0 到 1 教程：Markdown [中文](tutorials/build-personal-knowledge-base/zh-CN.md) / [English](tutorials/build-personal-knowledge-base/en.md)，网页 [中文](https://yanpengqi7.github.io/awesome-ai-application-engineer/tutorials/personal-knowledge-base/zh-CN.html) / [English](https://yanpengqi7.github.io/awesome-ai-application-engineer/tutorials/personal-knowledge-base/en.html)
 - 30 天学习任务：[30-Day Plan](checklists/30-day-plan.md)

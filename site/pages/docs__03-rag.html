@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAG · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/docs/03-rag.md">Edit on GitHub</a>
+      </div>
+      <h1>RAG</h1>
+<p>RAG, Retrieval-Augmented Generation, 是大模型应用最常见的架构之一。它通过检索外部知识，把相关内容放进上下文，再让模型生成答案。</p>
+<h2>RAG 解决什么问题</h2>
+<p>RAG 主要解决三类问题：</p>
+<table>
+<tr>
+<th>问题</th>
+<th>为什么需要 RAG</th>
+</tr>
+<tr>
+<td>私有知识</td>
+<td>模型训练时不知道你的公司制度、内部文档、客户资料</td>
+</tr>
+<tr>
+<td>实时变化</td>
+<td>业务数据、政策、产品说明会不断更新</td>
+</tr>
+<tr>
+<td>长文档</td>
+<td>文档太长，不能全部放进上下文窗口</td>
+</tr>
+</table>
+<p>RAG 不等于让模型“学会”这些资料，而是在每次提问时把相关资料临时找出来，作为回答依据。</p>
+<h2>RAG 和微调的区别</h2>
+<table>
+<tr>
+<th>方式</th>
+<th>适合解决</th>
+<th>不适合解决</th>
+</tr>
+<tr>
+<td>RAG</td>
+<td>私有知识、频繁更新、需要引用来源</td>
+<td>固定风格、复杂格式习惯</td>
+</tr>
+<tr>
+<td>微调</td>
+<td>特定风格、格式、任务模式</td>
+<td>频繁变化的事实知识</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>简单任务约束和输出格式</td>
+<td>大规模知识注入</td>
+</tr>
+</table>
+<p>大多数知识库、客服助手、制度问答项目，应该先做 RAG，再考虑是否需要微调。</p>
+<h2>基本流程</h2>
+<pre><code>文档采集 -&gt; 清洗 -&gt; 切分 -&gt; 向量化 -&gt; 存储 -&gt; 检索 -&gt; 重排 -&gt; 生成 -&gt; 引用 -&gt; 反馈</code></pre>
+<h2>用一个例子理解 RAG</h2>
+<p>假设你要做一个公司制度问答助手。模型本身不知道你公司的制度，所以不能直接问模型“年假怎么算”。正确做法是：</p>
+<ul>
+<li>把公司制度文档导入系统。</li>
+<li>将文档切成小段。</li>
+<li>为每个小段生成 Embedding。</li>
+<li>用户提问时，先检索相关制度片段。</li>
+<li>把检索结果和问题一起交给模型。</li>
+<li>模型只基于这些片段回答，并给出引用。</li>
+</ul>
+<p>RAG 的核心思想是：<strong>不要让模型凭空记忆私有知识，而是把相关知识临时放进上下文。</strong></p>
+<h2>关键模块</h2>
+<table>
+<tr>
+<th>模块</th>
+<th>关注点</th>
+</tr>
+<tr>
+<td>文档解析</td>
+<td>PDF、网页、Markdown、Office 文档的结构保留</td>
+</tr>
+<tr>
+<td>Chunking</td>
+<td>切分大小、重叠、标题层级、语义完整性</td>
+</tr>
+<tr>
+<td>Embedding</td>
+<td>模型选择、语言支持、成本、更新频率</td>
+</tr>
+<tr>
+<td>Vector Store</td>
+<td>过滤、权限、混合检索、性能</td>
+</tr>
+<tr>
+<td>Retrieval</td>
+<td>top-k、metadata filter、query rewrite</td>
+</tr>
+<tr>
+<td>Rerank</td>
+<td>提高召回片段排序质量</td>
+</tr>
+<tr>
+<td>Generation</td>
+<td>引用来源、拒答、答案风格</td>
+</tr>
+<tr>
+<td>Evaluation</td>
+<td>命中率、忠实度、答案质量、延迟和成本</td>
+</tr>
+</table>
+<h2>文档进入系统前要处理什么</h2>
+<p>文档质量决定 RAG 上限。导入文档时要关注：</p>
+<ul>
+<li>格式解析：PDF、网页、Markdown、Word 的结构不同。</li>
+<li>噪声清理：页眉页脚、导航栏、广告、重复版权声明会污染检索。</li>
+<li>结构保留：标题、表格、列表、代码块、页码最好保留。</li>
+<li>去重：重复文档会让检索结果偏向重复内容。</li>
+<li>权限标签：导入时就记录部门、用户组、文件来源和可见范围。</li>
+</ul>
+<p>不要把“文档解析”当成简单读文本。很多 RAG 效果差，根源在文档进入系统时就已经乱了。</p>
+<h2>常见问题</h2>
+<ul>
+<li>文档切得太碎，答案缺少上下文</li>
+<li>文档切得太大，检索不准且成本高</li>
+<li>只用向量检索，忽略关键词和元数据过滤</li>
+<li>没有权限控制，导致用户看到不该看的内容</li>
+<li>没有引用来源，用户无法验证答案</li>
+<li>没有评测集，只靠主观感觉调参</li>
+</ul>
+<h2>推荐路线</h2>
+<ul>
+<li>先做单用户、本地文档 RAG。</li>
+<li>加入引用来源和无法回答策略。</li>
+<li>引入 metadata filter，例如文件名、部门、时间。</li>
+<li>加入混合检索和 rerank。</li>
+<li>建立 50 到 200 条真实问题的评测集。</li>
+<li>上线后记录 bad case，持续优化切分和检索。</li>
+</ul>
+<h2>Chunking 怎么做</h2>
+<p>新手可以先用这套默认策略：</p>
+<ul>
+<li>Markdown 按标题切分</li>
+<li>普通文本每 500 到 1000 字切一段</li>
+<li>相邻 chunk 保留 10% 到 20% 重叠</li>
+<li>每个 chunk 保留标题、文件名、页码等 metadata</li>
+<li>不要把表格和代码块随便切断</li>
+</ul>
+<p>判断切分好不好，不是看 chunk 数量，而是看用户提问时能不能检索到足够完整的答案依据。</p>
+<h2>Chunk 设计取舍</h2>
+<p>Chunk 太小，可能缺少上下文；chunk 太大，检索不准且浪费 token。可以用下面方式判断：</p>
+<table>
+<tr>
+<th>现象</th>
+<th>可能原因</th>
+<th>调整方向</th>
+</tr>
+<tr>
+<td>检索到片段但回答不完整</td>
+<td>chunk 太小或没有标题上下文</td>
+<td>增大 chunk，保留父标题</td>
+</tr>
+<tr>
+<td>检索结果经常不相关</td>
+<td>chunk 太大或 embedding 区分度低</td>
+<td>减小 chunk，优化 query</td>
+</tr>
+<tr>
+<td>表格答案经常错</td>
+<td>表格被切断或格式丢失</td>
+<td>单独处理表格</td>
+</tr>
+<tr>
+<td>法规条款引用不准</td>
+<td>metadata 不完整</td>
+<td>保存章节号、页码、条款号</td>
+</tr>
+</table>
+<p>生产系统中，chunking 往往需要按文档类型分别设计。</p>
+<h2>检索策略</h2>
+<table>
+<tr>
+<th>策略</th>
+<th>适合场景</th>
+</tr>
+<tr>
+<td>向量检索</td>
+<td>语义相似问题</td>
+</tr>
+<tr>
+<td>关键词检索</td>
+<td>专有名词、编号、代码、产品名</td>
+</tr>
+<tr>
+<td>混合检索</td>
+<td>大多数生产场景</td>
+</tr>
+<tr>
+<td>metadata filter</td>
+<td>权限、时间、部门、文件类型过滤</td>
+</tr>
+<tr>
+<td>rerank</td>
+<td>提高 top-k 排序质量</td>
+</tr>
+</table>
+<h2>Query Rewrite</h2>
+<p>用户问题通常不等于适合检索的查询。例如用户问“这个怎么算”，如果没有上下文，检索系统很难找到资料。Query rewrite 的作用是把用户问题改写成更适合检索的形式。</p>
+<p>常见做法：</p>
+<ul>
+<li>补全代词和上下文，例如把“这个政策”改成“年假政策”。</li>
+<li>提取关键词，例如产品名、部门、日期、编号。</li>
+<li>生成多个查询，从不同角度检索。</li>
+<li>对多轮对话，把当前问题改写成独立问题。</li>
+</ul>
+<p>注意：query rewrite 也可能引入错误，所以需要在评测中单独观察检索命中率。</p>
+<h2>引用和拒答</h2>
+<p>RAG 回答应该尽量带引用。引用的作用不是装饰，而是让用户能验证答案。</p>
+<p>好的引用应该包含：</p>
+<ul>
+<li>文档标题。</li>
+<li>页码、章节或 chunk id。</li>
+<li>原文片段或可点击来源。</li>
+<li>引用和回答结论之间的对应关系。</li>
+</ul>
+<p>当检索不到足够资料时，系统应该拒答或说明缺少资料。不要让模型为了“显得有帮助”而编造。</p>
+<h2>RAG 评测指标</h2>
+<ul>
+<li>检索命中率：相关资料有没有被找出来</li>
+<li>上下文相关性：放进 prompt 的内容是否真的有用</li>
+<li>答案忠实度：回答是否基于资料，而不是编造</li>
+<li>引用准确性：引用是否能支持答案</li>
+<li>拒答准确性：资料没有答案时能否说不知道</li>
+</ul>
+<h2>常见优化顺序</h2>
+<p>RAG 效果不好时，建议按这个顺序排查：</p>
+<ul>
+<li>原始文档是否解析正确。</li>
+<li>chunk 是否保留足够语义。</li>
+<li>metadata 是否完整，权限过滤是否正确。</li>
+<li>top-k 检索结果是否包含答案。</li>
+<li>rerank 后相关片段是否排在前面。</li>
+<li>prompt 是否要求只基于资料回答。</li>
+<li>输出引用是否能支持结论。</li>
+</ul>
+<p>不要一上来就换向量数据库或换模型。先看检索结果，很多问题会很快暴露。</p>
+<h2>实战练习</h2>
+<ul>
+<li>选 3 篇 Markdown 文档，分别尝试按标题切分和固定长度切分。</li>
+<li>为每个 chunk 增加 title、source、page、section metadata。</li>
+<li>准备 20 个问题，手动检查 top-5 检索结果是否包含答案。</li>
+<li>给 RAG 回答增加引用和“资料不足无法回答”的输出。</li>
+</ul>
+<h2>实战项目</h2>
+<p>优先完成：<a href="./projects__README.html#1-个人知识库问答助手">个人知识库问答助手</a></p>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

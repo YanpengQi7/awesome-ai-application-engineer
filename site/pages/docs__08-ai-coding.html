@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Coding · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/docs/08-ai-coding.md">Edit on GitHub</a>
+      </div>
+      <h1>AI Coding</h1>
+<p>AI 编程工具已经成为 AI 应用工程师的基础装备。会用 AI 写代码，不等于让 AI 替你乱改项目，而是把它当成一个能阅读上下文、生成方案、执行重复工作、辅助测试的工程搭档。</p>
+<h2>AI 编程的正确心态</h2>
+<p>AI 编程不是把判断权全部交出去，而是提高你阅读、修改和验证代码的速度。你仍然要负责目标、边界、取舍和最终质量。</p>
+<p>可以把 AI 当成：</p>
+<ul>
+<li>快速阅读代码库的助手。</li>
+<li>生成样板代码的助手。</li>
+<li>提供方案对比的助手。</li>
+<li>写测试和文档的助手。</li>
+<li>排查错误日志的助手。</li>
+</ul>
+<p>不要把 AI 当成无需 review 的自动提交机器。</p>
+<h2>常见工具类型</h2>
+<table>
+<tr>
+<th>类型</th>
+<th>例子</th>
+<th>适合做什么</th>
+</tr>
+<tr>
+<td>IDE 助手</td>
+<td>Cursor、GitHub Copilot</td>
+<td>代码补全、重构、解释代码</td>
+</tr>
+<tr>
+<td>终端 Agent</td>
+<td>Codex、Claude Code</td>
+<td>修改项目、跑测试、处理任务</td>
+</tr>
+<tr>
+<td>Chat 助手</td>
+<td>ChatGPT、Claude、Gemini</td>
+<td>方案讨论、代码解释、文档生成</td>
+</tr>
+<tr>
+<td>自动化工具</td>
+<td>MCP、脚本、CI</td>
+<td>连接文件、数据库、浏览器、部署系统</td>
+</tr>
+</table>
+<h2>推荐工作流</h2>
+<ul>
+<li>先让 AI 阅读项目结构。</li>
+<li>描述目标，不要只说“帮我优化一下”。</li>
+<li>要求 AI 先找相关文件。</li>
+<li>小步修改，每次只改一个明确问题。</li>
+<li>跑测试或最小验证。</li>
+<li>让 AI 总结改了什么、风险是什么。</li>
+</ul>
+<h2>一个更完整的任务流程</h2>
+<pre><code>明确目标
+  -&gt; 找相关文件
+  -&gt; 理解现有模式
+  -&gt; 制定小范围修改
+  -&gt; 实施
+  -&gt; 运行测试或手动验证
+  -&gt; Review diff
+  -&gt; 记录结果</code></pre>
+<p>AI 最容易出错的地方是没有理解现有模式就开始写代码。所以在修改前，让它先读代码，比直接让它生成代码更重要。</p>
+<h2>好任务和坏任务</h2>
+<p>坏任务：</p>
+<pre><code>帮我把这个项目变好。</code></pre>
+<p>好任务：</p>
+<pre><code>请帮我给 RAG 问答接口增加引用来源字段。要求：
+- 不改变现有请求格式
+- 响应中新增 sources 数组
+- 每个 source 包含 title、url、chunk_id
+- 补一个单元测试</code></pre>
+<h2>怎么写高质量任务描述</h2>
+<p>好的任务描述通常包含：</p>
+<ul>
+<li>背景：为什么要改。</li>
+<li>目标：改完后用户能做什么。</li>
+<li>范围：哪些文件或模块可以改。</li>
+<li>约束：不能破坏哪些行为。</li>
+<li>验证：需要跑什么测试或怎样手动检查。</li>
+<li>输出：希望 AI 最后总结什么。</li>
+</ul>
+<p>示例：</p>
+<pre><code>请给知识库问答接口增加引用来源。范围只限后端 response 组装和相关测试。
+不要改变请求参数。返回 sources 数组，每个元素包含 title、chunk_id、score。
+完成后运行现有测试，并说明是否有兼容性风险。</code></pre>
+<h2>AI 编程的风险</h2>
+<ul>
+<li>看起来能跑，但边界条件错了</li>
+<li>引入不必要依赖</li>
+<li>改动范围过大</li>
+<li>测试只是为了通过当前样例</li>
+<li>没理解现有架构就重写</li>
+<li>泄露密钥或敏感数据</li>
+</ul>
+<h2>Review AI 生成代码时看什么</h2>
+<p>重点看：</p>
+<ul>
+<li>是否改动了任务之外的文件。</li>
+<li>是否引入不必要依赖。</li>
+<li>是否破坏现有接口兼容性。</li>
+<li>是否处理错误和边界情况。</li>
+<li>是否有测试覆盖核心路径。</li>
+<li>是否有安全风险，例如日志泄露 token。</li>
+<li>是否符合项目已有风格。</li>
+</ul>
+<p>不要只看“能不能跑”。能跑只是第一层，长期可维护才是关键。</p>
+<h2>适合交给 AI 的任务</h2>
+<ul>
+<li>生成样板代码</li>
+<li>写单元测试</li>
+<li>解释陌生代码</li>
+<li>批量修改文档</li>
+<li>查找 bug 可能位置</li>
+<li>根据错误日志定位问题</li>
+<li>生成迁移脚本初稿</li>
+</ul>
+<h2>不适合完全交给 AI 的任务</h2>
+<ul>
+<li>生产高风险变更</li>
+<li>安全策略设计</li>
+<li>数据库破坏性迁移</li>
+<li>财务、医疗、法律等高风险判断</li>
+<li>没有测试保护的大规模重构</li>
+</ul>
+<h2>个人 AI 编程习惯</h2>
+<ul>
+<li>每次改动前看 git status</li>
+<li>让 AI 说明会改哪些文件</li>
+<li>保持任务小而清晰</li>
+<li>重要逻辑自己 review</li>
+<li>让测试和 lint 成为最终裁判</li>
+<li>不把 <code>.env</code>、token、cookie 发给任何模型</li>
+</ul>
+<h2>适合练习的场景</h2>
+<ul>
+<li>让 AI 给一个陌生函数写解释，并验证它是否正确。</li>
+<li>让 AI 为已有函数补单元测试。</li>
+<li>让 AI 根据错误日志定位可能原因。</li>
+<li>让 AI 把重复代码抽成小函数。</li>
+<li>让 AI 给项目 README 增加使用说明。</li>
+</ul>
+<p>这些任务风险低、反馈快，很适合训练 AI 协作能力。</p>
+<h2>团队协作规范</h2>
+<p>团队使用 AI 编程时，建议明确：</p>
+<ul>
+<li>哪些代码可以交给 AI 辅助。</li>
+<li>哪些数据不能提供给模型。</li>
+<li>是否允许使用生产日志。</li>
+<li>AI 生成代码是否必须人工 review。</li>
+<li>Prompt、工具和模型调用是否要记录。</li>
+<li>安全相关代码是否需要额外审批。</li>
+</ul>
+<p>AI 编程越深入团队流程，越需要清晰边界。</p>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tool Calling · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/examples/tool-calling/README.md">Edit on GitHub</a>
+      </div>
+      <h1>Tool Calling</h1>
+<p>这个示例展示工具调用的核心思想：模型不应该凭空回答所有问题，而是在需要外部信息时调用工具。</p>
+<pre><code>用户问题 -&gt; 判断需要哪个工具 -&gt; 生成工具参数 -&gt; 执行工具 -&gt; 用工具结果回答</code></pre>
+<h2>运行方式</h2>
+<pre><code>cd examples/tool-calling
+python tool_calling_demo.py</code></pre>
+<h2>你应该观察什么</h2>
+<ul>
+<li>工具名称是否清晰</li>
+<li>工具参数是否结构化</li>
+<li>工具返回值是否简洁</li>
+<li>最终回答是否基于工具结果</li>
+</ul>
+<h2>下一步改造</h2>
+<ul>
+<li>把规则判断替换成真实模型 tool calling</li>
+<li>增加多个工具</li>
+<li>增加权限校验</li>
+<li>记录工具调用日志</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

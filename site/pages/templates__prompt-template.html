@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prompt Template · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/templates/prompt-template.md">Edit on GitHub</a>
+      </div>
+      <h1>Prompt Template</h1>
+<pre><code>你是一个{角色}。
+
+任务：
+{明确说明要完成的任务}
+
+背景：
+{提供必要上下文}
+
+输入：
+{用户输入或系统提供的信息}
+
+约束：
+- {约束 1}
+- {约束 2}
+- 不要编造未提供的信息
+
+输出格式：
+{明确 JSON、Markdown、表格或自然语言格式}
+
+失败处理：
+如果信息不足，请说明缺少什么信息，不要猜测。</code></pre>
+<h2>使用建议</h2>
+<ul>
+<li>先写清楚任务，再补角色</li>
+<li>输出格式越关键，越应该用 schema</li>
+<li>对高风险任务加入拒答规则</li>
+<li>每次修改 prompt 后保留版本</li>
+<li>用真实 bad case 测试 prompt</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

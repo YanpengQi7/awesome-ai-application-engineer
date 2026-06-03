@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAG Bad Cases · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/bad-cases/rag-bad-cases.md">Edit on GitHub</a>
+      </div>
+      <h1>RAG Bad Cases</h1>
+<p>这份案例库记录 RAG 项目中最常见、也最值得复盘的失败模式。每个 bad case 都包含现象、原因、修复方式和如何避免复发。</p>
+<h2>1. 检索结果看起来相关，但回答缺少关键条件</h2>
+<p>现象：</p>
+<p>用户问“入职半年有没有年假”，系统回答“员工有年假”，但没有说明“入职满一年后才享有”。</p>
+<p>常见原因：</p>
+<ul>
+<li>chunk 太小，只检索到“员工享有年假”的片段</li>
+<li>条件句和结论被切到不同 chunk</li>
+<li>Prompt 没要求保留限制条件</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>增大 chunk 或保留父级标题和相邻上下文</li>
+<li>对政策、合同、制度类文档按条款切分</li>
+<li>Prompt 中要求回答必须包含适用条件、限制和例外</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>在评测集中加入“条件型问题”</li>
+<li>检查 top-k 结果是否包含完整依据</li>
+<li>评测答案是否遗漏限制条件</li>
+</ul>
+<h2>2. 检索不到专有名词</h2>
+<p>现象：</p>
+<p>用户问产品代号、工单号、政策编号时，向量检索找不到答案。</p>
+<p>常见原因：</p>
+<ul>
+<li>只使用向量检索，忽略关键词检索</li>
+<li>专有名词在 embedding 空间中语义不明显</li>
+<li>文档中的编号被解析或清洗掉</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>加入关键词检索或混合检索</li>
+<li>保留编号、代码、产品名等原始文本</li>
+<li>对 query 提取专有名词并提高匹配权重</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>单独准备专有名词评测集</li>
+<li>检查关键词检索和向量检索的召回差异</li>
+<li>对编号、代码、URL、产品名做解析保护</li>
+</ul>
+<h2>3. 模型引用了资料，但引用不支持结论</h2>
+<p>现象：</p>
+<p>回答后面有来源，但打开来源发现只和主题相关，并不能证明结论。</p>
+<p>常见原因：</p>
+<ul>
+<li>模型把检索片段当作装饰性引用</li>
+<li>Prompt 没要求结论和引用逐条对应</li>
+<li>检索结果相关但证据不足</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>要求每个关键结论都带对应 source</li>
+<li>在输出中加入 <code>claim</code> 和 <code>source_ids</code></li>
+<li>对答案做引用一致性评测</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>人工抽检引用准确性</li>
+<li>LLM-as-judge 单独评分 faithfulness 和 citation_support</li>
+<li>资料不足时拒答</li>
+</ul>
+<h2>4. 资料没有答案，模型仍然编造</h2>
+<p>现象：</p>
+<p>知识库没有“报销上限”，模型却回答了一个具体金额。</p>
+<p>常见原因：</p>
+<ul>
+<li>Prompt 要求模型必须回答</li>
+<li>没有拒答策略</li>
+<li>检索分数太低仍继续生成</li>
+<li>模型根据常识补全</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>Prompt 明确只能基于资料回答</li>
+<li>增加资料不足的固定输出</li>
+<li>设置检索分数阈值</li>
+<li>将拒答样例加入 few-shot</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>评测集中至少 20% 是拒答问题</li>
+<li>统计拒答准确率</li>
+<li>记录用户追问和点踩作为 bad case</li>
+</ul>
+<h2>5. 文档更新后，系统仍按旧资料回答</h2>
+<p>现象：</p>
+<p>制度已更新，但问答结果还是旧版本。</p>
+<p>常见原因：</p>
+<ul>
+<li>文档更新后没有重新生成 embedding</li>
+<li>新旧 chunk 同时存在</li>
+<li>metadata 中没有版本或更新时间</li>
+<li>缓存没有失效</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>文档变更触发重新索引</li>
+<li>删除旧 chunk 或标记 inactive</li>
+<li>metadata 保存 version、updated_at</li>
+<li>文档更新后清理相关缓存</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>建立索引版本号</li>
+<li>上线前检查当前回答引用的文档版本</li>
+<li>对关键政策类文档做更新回归测试</li>
+</ul>
+<h2>6. 用户看到不该看的文档</h2>
+<p>现象：</p>
+<p>普通员工问到了管理层文档中的内容。</p>
+<p>常见原因：</p>
+<ul>
+<li>权限过滤只在前端做</li>
+<li>metadata 没有保存权限标签</li>
+<li>检索时没有按用户权限过滤</li>
+<li>把所有检索结果直接放进 Prompt</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>后端统一做权限校验</li>
+<li>文档导入时写入权限 metadata</li>
+<li>检索阶段先过滤权限，再进入模型</li>
+<li>日志记录每次回答使用的 source</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>准备权限隔离评测集</li>
+<li>用不同角色用户跑同一批问题</li>
+<li>定期审计回答引用来源</li>
+</ul>
+<h2>7. Chunk 太大导致成本高且检索不准</h2>
+<p>现象：</p>
+<p>每次回答都塞入大量文本，响应慢、成本高，回答还容易跑偏。</p>
+<p>常见原因：</p>
+<ul>
+<li>固定按很大长度切分</li>
+<li>top-k 设置过高</li>
+<li>没有 rerank 或上下文裁剪</li>
+<li>文档噪声太多</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>按标题、段落、语义结构切分</li>
+<li>降低 top-k 并评测影响</li>
+<li>加 rerank 或上下文压缩</li>
+<li>清理重复内容和模板噪声</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>监控每次请求 prompt_tokens</li>
+<li>记录检索 chunk 数量和长度</li>
+<li>对不同 chunk size 做离线评测</li>
+</ul>
+<h2>8. 多轮对话中“这个”指代丢失</h2>
+<p>现象：</p>
+<p>用户先问“RAG 怎么做”，再问“这个怎么评测”，系统检索不到正确内容。</p>
+<p>常见原因：</p>
+<ul>
+<li>直接用当前问题检索</li>
+<li>没有结合对话历史改写 query</li>
+<li>历史上下文过长或无关</li>
+</ul>
+<p>修复方式：</p>
+<ul>
+<li>将当前问题改写成独立问题</li>
+<li>保留最近关键主题</li>
+<li>query rewrite 后再检索</li>
+</ul>
+<p>如何避免复发：</p>
+<ul>
+<li>加入多轮评测用例</li>
+<li>对比 rewrite 前后的检索命中率</li>
+<li>记录原始 query 和改写 query</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

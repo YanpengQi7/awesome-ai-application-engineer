@@ -6,6 +6,15 @@ on:
       - main
     paths:
       - "site/**"
+      - "docs/**"
+      - "checklists/**"
+      - "bad-cases/**"
+      - "tutorials/**"
+      - "projects/**"
+      - "examples/**"
+      - "resources/**"
+      - "templates/**"
+      - "scripts/build-site.mjs"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -29,6 +38,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Build static site pages
+        run: node scripts/build-site.mjs
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:

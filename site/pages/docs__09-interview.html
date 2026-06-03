@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interview · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/docs/09-interview.md">Edit on GitHub</a>
+      </div>
+      <h1>Interview</h1>
+<p>AI 应用工程师面试通常不只问“你会不会调 API”，更关注你是否理解真实系统里的检索、工具调用、评测、成本、安全和上线问题。</p>
+<h2>面试准备的核心思路</h2>
+<p>不要只背概念。面试官更想听你能不能把一个 AI 应用从需求讲到上线：</p>
+<pre><code>用户问题
+  -&gt; 方案设计
+  -&gt; 数据流
+  -&gt; 模型和工具选择
+  -&gt; 评测方法
+  -&gt; 上线风险
+  -&gt; 迭代结果</code></pre>
+<p>准备时，至少要有一个项目能讲清楚架构、失败案例和优化过程。</p>
+<h2>面试官想确认什么</h2>
+<ul>
+<li>你是否理解 LLM 的能力边界</li>
+<li>你是否做过完整项目，而不是只写过 demo</li>
+<li>你是否知道 RAG 为什么会失败</li>
+<li>你是否能设计可靠的 Agent 工具</li>
+<li>你是否有评测和线上优化意识</li>
+<li>你是否能控制成本和风险</li>
+</ul>
+<h2>你应该主动展示什么</h2>
+<ul>
+<li>你知道模型不是万能的。</li>
+<li>你能画出完整数据流。</li>
+<li>你理解 RAG 的失败原因。</li>
+<li>你知道工具调用要做权限和确认。</li>
+<li>你会用评测集判断改动效果。</li>
+<li>你能说出成本、延迟和质量之间的取舍。</li>
+</ul>
+<p>能讲清楚 trade-off，比只说“用了某某框架”更有说服力。</p>
+<h2>高频问题</h2>
+<h3>1. RAG 是什么，解决什么问题？</h3>
+<p>RAG 是检索增强生成。它先从外部知识库检索相关内容，再把内容和用户问题一起交给模型生成答案。它解决的是模型无法天然知道私有知识、实时知识和长文档知识的问题。</p>
+<h3>2. RAG 为什么还会幻觉？</h3>
+<p>因为检索结果可能不相关、上下文可能不完整、prompt 可能没有限制模型只基于资料回答，或者模型在信息不足时仍然尝试补全答案。</p>
+<h3>3. 怎么提升 RAG 效果？</h3>
+<ul>
+<li>改进文档解析和切分</li>
+<li>加 metadata filter</li>
+<li>使用混合检索</li>
+<li>加 rerank</li>
+<li>优化 query rewrite</li>
+<li>建立评测集</li>
+<li>收集 bad case 持续迭代</li>
+</ul>
+<h3>4. Agent 和普通聊天机器人有什么区别？</h3>
+<p>普通聊天机器人主要生成回答。Agent 可以根据目标选择工具、调用工具、读取结果并继续执行下一步。</p>
+<h3>5. 工具调用怎么保证安全？</h3>
+<ul>
+<li>工具白名单</li>
+<li>参数 schema 校验</li>
+<li>后端权限检查</li>
+<li>高风险操作用户确认</li>
+<li>记录完整调用日志</li>
+<li>不把敏感密钥暴露给模型</li>
+</ul>
+<h3>6. 如何评测一个 AI 应用？</h3>
+<p>从正确性、忠实度、完整性、格式、安全、延迟、成本等维度评测。常用方式包括规则校验、人工评分、LLM-as-judge、线上反馈和 A/B 测试。</p>
+<h3>7. 怎么降低大模型调用成本？</h3>
+<ul>
+<li>小模型处理简单任务</li>
+<li>缓存高频结果</li>
+<li>压缩上下文</li>
+<li>减少无关历史</li>
+<li>批处理离线任务</li>
+<li>对不同任务选择不同模型</li>
+</ul>
+<h3>8. Prompt Engineering 的工程价值是什么？</h3>
+<p>Prompt Engineering 不是写神奇关键词，而是把任务、上下文、约束、输出格式和失败处理设计清楚。工程价值在于让模型输出更稳定、更容易评测、更容易被程序解析。</p>
+<h3>9. RAG 中 chunk 太大或太小有什么问题？</h3>
+<p>chunk 太小会丢失上下文，模型拿不到完整依据；chunk 太大会降低检索精度，并增加 token 成本。应该根据文档结构、问题类型和评测结果调整。</p>
+<h3>10. 如何处理模型输出 JSON 失败？</h3>
+<p>可以使用 schema 约束输出，解析失败时有限重试，仍失败则返回错误或进入人工复核。不要直接把未校验的模型输出交给下游系统。</p>
+<h3>11. Agent 为什么容易失控？</h3>
+<p>因为 Agent 会根据中间状态持续决策和调用工具。如果缺少工具边界、权限校验、终止条件和日志，就可能循环调用、越权访问或执行高风险操作。</p>
+<h3>12. 怎么防 prompt injection？</h3>
+<p>把外部内容当作数据而不是指令；工具调用前做后端权限校验；不要把密钥放进上下文；高风险操作加确认；对检索文档和用户输入中的恶意指令保持隔离。</p>
+<h3>13. 什么时候用微调，什么时候用 RAG？</h3>
+<p>私有知识和频繁变化的事实优先用 RAG；固定格式、风格、任务习惯可以考虑微调。很多项目可以先用 Prompt + RAG 达到可用，再根据评测判断是否需要微调。</p>
+<h2>项目讲述模板</h2>
+<p>面试时讲项目，可以按这个顺序：</p>
+<ul>
+<li>背景：为什么要做这个项目</li>
+<li>目标：要解决什么用户问题</li>
+<li>架构：整体数据流是什么</li>
+<li>技术：用了哪些模型、检索、工具和框架</li>
+<li>难点：遇到什么问题</li>
+<li>优化：如何评测和改进</li>
+<li>结果：效果、成本、延迟或用户反馈</li>
+<li>反思：如果重做，会怎么改</li>
+</ul>
+<h2>项目讲述示例：个人知识库问答</h2>
+<p>可以这样组织：</p>
+<ul>
+<li>背景：用户有很多分散文档，搜索效率低。</li>
+<li>目标：用户提问后，系统基于文档回答并给出处。</li>
+<li>架构：上传文档，解析切分，生成 embedding，向量检索，模型基于片段回答。</li>
+<li>难点：PDF 解析噪声、chunk 大小、引用不准、资料不足时模型编造。</li>
+<li>优化：保留标题和页码 metadata，加入拒答策略，建立 50 条评测问题。</li>
+<li>结果：常见问题命中率提高，回答带引用，bad case 可持续迭代。</li>
+</ul>
+<p>关键是讲出你为什么这样设计，而不是只列技术名词。</p>
+<h2>简历关键词</h2>
+<ul>
+<li>LLM Application</li>
+<li>Prompt Engineering</li>
+<li>RAG</li>
+<li>Embedding</li>
+<li>Vector Database</li>
+<li>Hybrid Search</li>
+<li>Rerank</li>
+<li>Agent</li>
+<li>Tool Calling</li>
+<li>MCP</li>
+<li>Evaluation</li>
+<li>Observability</li>
+<li>Cost Optimization</li>
+</ul>
+<h2>简历项目描述模板</h2>
+<pre><code>构建个人知识库 RAG 问答系统，支持 Markdown/PDF 文档解析、chunk 切分、Embedding 向量检索和引用回答。设计 50 条评测集，对比 chunk size、top-k 和 prompt 版本，提升检索命中率并降低幻觉。加入日志、成本统计和 bad case 反馈闭环。</code></pre>
+<p>好的简历描述要包含：做了什么、用了什么、怎么评测、结果如何。</p>
+<h2>作品集建议</h2>
+<p>至少准备一个可以现场讲清楚的项目。最推荐的是“个人知识库问答助手”，因为它覆盖文档处理、Embedding、向量检索、Prompt、引用、评测和上线。</p>
+<h2>面试前自查</h2>
+<ul>
+<li>能否 3 分钟讲清楚一个项目。</li>
+<li>能否画出项目数据流。</li>
+<li>能否说出 3 个失败案例和对应优化。</li>
+<li>能否解释为什么选择 RAG、Agent 或 MCP。</li>
+<li>能否说明如何评测质量。</li>
+<li>能否估算 token 成本和延迟来源。</li>
+<li>能否说明权限、安全和日志设计。</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

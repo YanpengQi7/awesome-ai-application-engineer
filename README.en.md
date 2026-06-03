@@ -18,6 +18,7 @@ This repository brings together learning paths, core concepts, practical tutoria
 ## Quick Links
 
 - Online website: [Website](https://yanpengqi7.github.io/awesome-ai-application-engineer/)
+- Online docs index: [All Pages](https://yanpengqi7.github.io/awesome-ai-application-engineer/docs.html)
 - Bilingual tutorial: [Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/en.md)
 - Chinese tutorial: [从 0 到 1 构建个人知识库问答助手](tutorials/build-personal-knowledge-base/zh-CN.md)
 - RAG production checklist: [RAG Production Checklist](checklists/rag-production-checklist.md)

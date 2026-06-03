@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Safety Checklist · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/checklists/agent-safety-checklist.md">Edit on GitHub</a>
+      </div>
+      <h1>Agent Safety Checklist</h1>
+<p>Agent 的风险来自“模型可以选择工具并执行动作”。这份清单帮助你在设计 Agent 时控制权限、工具边界和失败后果。</p>
+<h2>是否真的需要 Agent</h2>
+<ul>
+<li>[ ] 任务需要多步骤执行</li>
+<li>[ ] 中间结果会影响下一步</li>
+<li>[ ] 需要调用外部工具</li>
+<li>[ ] 固定 workflow 难以覆盖所有分支</li>
+<li>[ ] 失败后可以恢复或请求用户确认</li>
+</ul>
+<p>如果这些问题大多是否，优先使用普通 LLM 调用或固定 workflow。</p>
+<h2>工具设计</h2>
+<ul>
+<li>[ ] 每个工具只做一个明确动作</li>
+<li>[ ] 工具名称能表达用途</li>
+<li>[ ] 参数使用 schema，而不是一个自由文本 <code>input</code></li>
+<li>[ ] 参数有类型、必填项和枚举限制</li>
+<li>[ ] 工具返回结构化结果</li>
+<li>[ ] 工具错误包含可恢复建议</li>
+<li>[ ] 工具不会返回大量无关内容</li>
+</ul>
+<h2>权限控制</h2>
+<ul>
+<li>[ ] 工具调用前由后端检查用户权限</li>
+<li>[ ] 用户无权访问的数据不会进入上下文</li>
+<li>[ ] 读工具和写工具分开设计</li>
+<li>[ ] 不同用户、团队、项目的数据隔离</li>
+<li>[ ] 工具调用记录用户身份和时间</li>
+</ul>
+<h2>高风险操作</h2>
+<p>这些操作默认需要确认：</p>
+<ul>
+<li>[ ] 发送邮件、消息或通知</li>
+<li>[ ] 删除、覆盖、移动文件</li>
+<li>[ ] 修改数据库</li>
+<li>[ ] 执行 SQL 或 shell 命令</li>
+<li>[ ] 发起付款、退款、下单</li>
+<li>[ ] 部署、回滚、修改线上配置</li>
+<li>[ ] 修改权限或邀请成员</li>
+</ul>
+<p>确认信息应该包含操作对象、参数摘要、影响范围和撤销方式。</p>
+<h2>终止条件</h2>
+<ul>
+<li>[ ] Agent 有明确完成标准</li>
+<li>[ ] 最大工具调用次数有限制</li>
+<li>[ ] 最大运行时间有限制</li>
+<li>[ ] 重复失败会停止并请求用户帮助</li>
+<li>[ ] 工具结果不足时不会无限搜索</li>
+<li>[ ] 任务完成后不会继续调用工具</li>
+</ul>
+<h2>Prompt Injection 防护</h2>
+<ul>
+<li>[ ] 外部网页、文档、邮件内容被视为数据，不是指令</li>
+<li>[ ] 系统规则说明外部内容不能覆盖工具权限</li>
+<li>[ ] 工具调用前不依赖模型判断权限</li>
+<li>[ ] 不把密钥、cookie、token 放进上下文</li>
+<li>[ ] 高风险工具有确认层</li>
+</ul>
+<h2>日志和审计</h2>
+<ul>
+<li>[ ] 保存完整 trace</li>
+<li>[ ] 记录模型输入摘要</li>
+<li>[ ] 记录工具名和参数摘要</li>
+<li>[ ] 记录工具结果摘要</li>
+<li>[ ] 记录最终回答和完成状态</li>
+<li>[ ] 敏感字段已脱敏</li>
+<li>[ ] 失败 trace 可以复现</li>
+</ul>
+<h2>评测</h2>
+<ul>
+<li>[ ] 有正常任务用例</li>
+<li>[ ] 有工具失败用例</li>
+<li>[ ] 有权限不足用例</li>
+<li>[ ] 有 prompt injection 用例</li>
+<li>[ ] 有需要用户确认的用例</li>
+<li>[ ] 评测工具选择是否正确</li>
+<li>[ ] 评测是否按时停止</li>
+</ul>
+<h2>上线前一句话原则</h2>
+<p>模型可以建议动作，但系统必须控制权限、确认和最终执行。</p>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

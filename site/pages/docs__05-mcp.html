@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCP · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/docs/05-mcp.md">Edit on GitHub</a>
+      </div>
+      <h1>MCP</h1>
+<p>MCP, Model Context Protocol, 可以理解为连接 AI 应用和外部工具、数据源的通用协议。它让模型客户端用统一方式访问文件、数据库、浏览器、业务系统和内部服务。</p>
+<h2>MCP 解决的核心问题</h2>
+<p>没有 MCP 时，每个 AI 客户端都要用自己的方式接工具：</p>
+<pre><code>AI 客户端 A -&gt; 自定义文件工具
+AI 客户端 B -&gt; 自定义数据库工具
+AI 客户端 C -&gt; 自定义浏览器工具</code></pre>
+<p>这会导致重复开发、权限难统一、工具难复用。MCP 的目标是让工具提供方按统一协议暴露能力，让客户端按统一方式发现和调用。</p>
+<p>你可以把 MCP 理解成“AI 应用的工具连接层”。</p>
+<h2>为什么要学 MCP</h2>
+<ul>
+<li>AI 应用需要连接越来越多工具</li>
+<li>每个工具单独接入会造成重复开发</li>
+<li>MCP 可以把工具能力封装成可复用服务</li>
+<li>对 AI 编程工具、Agent 平台和企业内部工具都很重要</li>
+</ul>
+<h2>MCP 适合哪些人先学</h2>
+<p>如果你只是调用模型做聊天或简单 RAG，可以晚一点学 MCP。如果你想做下面这些事情，就很值得提前学：</p>
+<ul>
+<li>给 AI 编程工具接入本地项目能力。</li>
+<li>把公司内部 API 封装给多个 AI 客户端复用。</li>
+<li>构建企业内部工具市场。</li>
+<li>做多工具 Agent，需要统一工具描述和权限。</li>
+<li>希望把数据库、文件、浏览器、知识库都接到一个 AI 工作台。</li>
+</ul>
+<h2>用一句话理解 MCP</h2>
+<p>MCP 就像 AI 应用和外部工具之间的 USB-C 接口。工具只要按照协议暴露能力，支持 MCP 的客户端就可以用统一方式发现和调用这些能力。</p>
+<h2>你应该掌握什么</h2>
+<ul>
+<li>MCP Client 和 MCP Server 的关系</li>
+<li>Tool、Resource、Prompt 的区别</li>
+<li>如何定义工具输入输出 schema</li>
+<li>如何处理权限、错误和敏感数据</li>
+<li>如何把本地脚本、数据库或 HTTP API 封装成 MCP Server</li>
+</ul>
+<h2>Client 和 Server 怎么协作</h2>
+<p>MCP Client 通常在 AI 应用或 AI 编程工具里，负责：</p>
+<ul>
+<li>连接一个或多个 MCP Server。</li>
+<li>发现 server 暴露的 tools、resources、prompts。</li>
+<li>把工具描述提供给模型。</li>
+<li>在模型需要时发起工具调用。</li>
+</ul>
+<p>MCP Server 负责：</p>
+<ul>
+<li>定义工具和输入输出 schema。</li>
+<li>执行真实操作，例如读文件、查数据库、调用 API。</li>
+<li>返回结构化结果。</li>
+<li>做权限、安全和错误处理。</li>
+</ul>
+<p>模型本身不直接访问你的文件或数据库。真正的访问应该发生在 MCP Server 或后端服务里。</p>
+<h2>可做的 MCP Server</h2>
+<table>
+<tr>
+<th>Server</th>
+<th>能力</th>
+</tr>
+<tr>
+<td>文件管理</td>
+<td>搜索、读取、写入项目文件</td>
+</tr>
+<tr>
+<td>数据库查询</td>
+<td>执行受限 SQL、返回表结构和结果</td>
+</tr>
+<tr>
+<td>浏览器工具</td>
+<td>打开网页、截图、提取内容</td>
+</tr>
+<tr>
+<td>团队知识库</td>
+<td>搜索 Notion、飞书、Confluence</td>
+</tr>
+<tr>
+<td>运维工具</td>
+<td>查询日志、部署状态和告警</td>
+</tr>
+</table>
+<h2>Tool、Resource、Prompt 的区别</h2>
+<table>
+<tr>
+<th>类型</th>
+<th>用途</th>
+<th>例子</th>
+</tr>
+<tr>
+<td>Tool</td>
+<td>执行动作或计算</td>
+<td>搜索文件、查询数据库、发起请求</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>暴露可读取的上下文</td>
+<td>当前项目文件、数据库 schema、文档内容</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td>提供可复用提示词模板</td>
+<td>代码审查模板、日报生成模板</td>
+</tr>
+</table>
+<h2>Tool 设计原则</h2>
+<p>MCP 工具要尽量小而清晰。一个工具应该完成一个明确动作。</p>
+<p>推荐：</p>
+<pre><code>search_files(query: string, root: string, limit: number)
+read_file(path: string)
+query_database(sql: string, max_rows: number)</code></pre>
+<p>不推荐：</p>
+<pre><code>run_anything(command: string)
+do_task(task: string)</code></pre>
+<p>工具越模糊，模型越难正确使用，也越难做权限控制。</p>
+<h2>Resource 适合放什么</h2>
+<p>Resource 更适合暴露稳定、可读取的上下文，例如：</p>
+<ul>
+<li>当前项目的 README。</li>
+<li>数据库 schema。</li>
+<li>API 文档。</li>
+<li>配置说明。</li>
+<li>用户选择的文件内容。</li>
+</ul>
+<p>如果某个能力需要计算、搜索、写入或调用外部服务，更适合做成 Tool。</p>
+<h2>实战路线</h2>
+<ul>
+<li>写一个只读文件搜索 MCP Server。</li>
+<li>给工具加 schema 和错误处理。</li>
+<li>接入一个真实 AI 客户端。</li>
+<li>加入权限白名单和日志。</li>
+<li>把一个业务 API 封装成 MCP 工具。</li>
+</ul>
+<h2>权限和安全</h2>
+<p>MCP Server 经常连接本地文件、数据库和内部系统，所以安全设计非常重要。</p>
+<p>最低要求：</p>
+<ul>
+<li>明确白名单目录或白名单 API。</li>
+<li>默认只读，写操作单独设计。</li>
+<li>不返回 <code>.env</code>、密钥、cookie、token。</li>
+<li>对 SQL、shell、文件写入等高风险能力做限制。</li>
+<li>记录调用日志，包括工具名、参数摘要、调用方和时间。</li>
+<li>错误信息不要泄露敏感路径或密钥。</li>
+</ul>
+<p>不要依赖模型“自觉不做危险事”。权限应该由 server 端代码保证。</p>
+<h2>错误处理</h2>
+<p>MCP 工具返回错误时，要让模型知道如何恢复。</p>
+<p>坏例子：</p>
+<pre><code>{ &quot;error&quot;: &quot;failed&quot; }</code></pre>
+<p>好例子：</p>
+<pre><code>{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;error_code&quot;: &quot;ROOT_NOT_ALLOWED&quot;,
+  &quot;message&quot;: &quot;root 不在允许搜索目录内&quot;,
+  &quot;hint&quot;: &quot;请选择 /workspace 下的目录&quot;
+}</code></pre>
+<p>清晰错误能帮助 Agent 调整下一步，而不是反复调用同一个失败工具。</p>
+<h2>项目检查点</h2>
+<ul>
+<li>工具命名是否能让模型理解</li>
+<li>参数是否足够结构化</li>
+<li>返回结果是否简洁且可继续推理</li>
+<li>是否避免暴露 token、cookie、密钥等敏感信息</li>
+<li>是否给危险操作加确认机制</li>
+</ul>
+<h2>新手练习：只读文件搜索工具</h2>
+<p>目标：做一个 MCP Server，提供 <code>search_files</code> 工具。</p>
+<p>输入：</p>
+<ul>
+<li>query：关键词</li>
+<li>root：允许搜索的目录</li>
+<li>limit：最多返回多少条</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>文件路径</li>
+<li>匹配行号</li>
+<li>匹配内容摘要</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>只允许搜索白名单目录</li>
+<li>不返回隐藏密钥文件</li>
+<li>错误信息要告诉调用方如何修正</li>
+</ul>
+<h2>进阶练习</h2>
+<ul>
+<li>给 <code>search_files</code> 增加文件类型过滤，例如只搜 <code>.md</code> 和 <code>.py</code>。</li>
+<li>增加 <code>read_file</code> 工具，但限制最大读取行数。</li>
+<li>给工具调用加日志，记录 query、耗时和返回数量。</li>
+<li>把一个只读 HTTP API 封装成 MCP 工具。</li>
+<li>设计一个需要用户确认的写操作工具，但先不真正执行。</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

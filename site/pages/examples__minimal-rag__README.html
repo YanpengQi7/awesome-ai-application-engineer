@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minimal RAG · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/examples/minimal-rag/README.md">Edit on GitHub</a>
+      </div>
+      <h1>Minimal RAG</h1>
+<p>这个示例用最少代码解释 RAG 的核心流程：</p>
+<pre><code>文档 -&gt; 切分 -&gt; 检索相关片段 -&gt; 拼进 Prompt -&gt; 模型回答</code></pre>
+<p>为了让新手容易理解，这个示例先用关键词检索，不强制引入向量数据库。真正项目中可以把 <code>retrieve</code> 替换成 Embedding + Vector Store。</p>
+<h2>运行方式</h2>
+<pre><code>cd examples/minimal-rag
+python rag_demo.py</code></pre>
+<h2>你应该观察什么</h2>
+<ul>
+<li>文档是如何切成 chunk 的</li>
+<li>用户问题如何匹配 chunk</li>
+<li>Prompt 如何要求模型只基于上下文回答</li>
+<li>当上下文没有答案时应该如何拒答</li>
+</ul>
+<h2>下一步改造</h2>
+<ul>
+<li>接入 Embedding</li>
+<li>使用 pgvector 或 Qdrant</li>
+<li>增加引用来源</li>
+<li>增加评测集</li>
+<li>支持上传 PDF 或 Markdown</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

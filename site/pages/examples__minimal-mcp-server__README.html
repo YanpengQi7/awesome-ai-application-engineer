@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minimal MCP Server · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/examples/minimal-mcp-server/README.md">Edit on GitHub</a>
+      </div>
+      <h1>Minimal MCP Server</h1>
+<p>这个示例说明 MCP Server 的最小设计思路：把一个本地能力封装成 AI 客户端可以发现和调用的工具。</p>
+<p>这里提供的是教学版伪实现，重点是看懂工具边界。真实项目中可以使用官方 MCP SDK 实现。</p>
+<h2>工具设计</h2>
+<p>工具名：<code>search_files</code></p>
+<p>输入：</p>
+<ul>
+<li><code>query</code>：搜索关键词</li>
+<li><code>root</code>：搜索目录</li>
+<li><code>limit</code>：最多返回数量</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>文件路径</li>
+<li>行号</li>
+<li>匹配内容</li>
+</ul>
+<h2>运行方式</h2>
+<pre><code>cd examples/minimal-mcp-server
+python search_files_demo.py ../../docs rag</code></pre>
+<h2>安全原则</h2>
+<ul>
+<li>只允许搜索白名单目录</li>
+<li>不读取隐藏文件</li>
+<li>不返回 <code>.env</code>、token、cookie 等敏感内容</li>
+<li>错误信息要清楚</li>
+</ul>
+<h2>下一步改造</h2>
+<ul>
+<li>使用官方 MCP SDK</li>
+<li>增加 <code>read_file</code> 工具</li>
+<li>增加权限白名单</li>
+<li>接入真实 AI 客户端</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

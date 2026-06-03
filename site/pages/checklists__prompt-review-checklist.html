@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prompt Review Checklist · Awesome AI Application Engineer</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="../docs.html">All Pages</a>
+          <a href="../tutorials/personal-knowledge-base/zh-CN.html">中文教程</a>
+          <a href="../tutorials/personal-knowledge-base/en.html">English Tutorial</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main class="article">
+      <div class="lang-switch">
+        <a class="pill" href="../docs.html">All Pages</a>
+        <a class="pill" href="https://github.com/YanpengQi7/awesome-ai-application-engineer/blob/main/checklists/prompt-review-checklist.md">Edit on GitHub</a>
+      </div>
+      <h1>Prompt Review Checklist</h1>
+<p>这份清单用于 review 一个 Prompt 是否适合进入项目或生产环境。</p>
+<h2>任务定义</h2>
+<ul>
+<li>[ ] 任务目标清楚</li>
+<li>[ ] 成功标准明确</li>
+<li>[ ] 目标用户或读者明确</li>
+<li>[ ] 输入信息来源明确</li>
+<li>[ ] 输出会给人读还是给程序处理已说明</li>
+</ul>
+<h2>上下文</h2>
+<ul>
+<li>[ ] 只放当前任务需要的上下文</li>
+<li>[ ] 区分系统规则、业务资料和用户输入</li>
+<li>[ ] 外部资料不会覆盖系统规则</li>
+<li>[ ] 上下文过长时有裁剪或摘要策略</li>
+<li>[ ] 多轮对话中当前问题能独立理解</li>
+</ul>
+<h2>约束和边界</h2>
+<ul>
+<li>[ ] 明确不能编造</li>
+<li>[ ] 明确信息不足时如何回答</li>
+<li>[ ] 明确不能越权访问或建议危险操作</li>
+<li>[ ] 高风险场景要求人工复核</li>
+<li>[ ] 不要求模型输出隐藏推理过程</li>
+</ul>
+<h2>输出格式</h2>
+<ul>
+<li>[ ] 输出格式固定</li>
+<li>[ ] JSON 字段名稳定</li>
+<li>[ ] 字段类型明确</li>
+<li>[ ] 枚举值有限</li>
+<li>[ ] 失败状态有固定结构</li>
+<li>[ ] 输出可以被代码校验</li>
+</ul>
+<h2>示例</h2>
+<ul>
+<li>[ ] 有标准成功示例</li>
+<li>[ ] 有边界示例</li>
+<li>[ ] 有拒答示例</li>
+<li>[ ] 有反例或容易误判示例</li>
+<li>[ ] 示例和真实输入足够接近</li>
+</ul>
+<h2>评测</h2>
+<ul>
+<li>[ ] 至少有 10 条测试输入</li>
+<li>[ ] 包含正常、边界、拒答和 bad case</li>
+<li>[ ] 修改 Prompt 后会跑回归</li>
+<li>[ ] 记录 Prompt 版本和修改原因</li>
+<li>[ ] 能比较不同 Prompt 版本效果</li>
+</ul>
+<h2>安全</h2>
+<ul>
+<li>[ ] Prompt 中没有密钥、token、cookie</li>
+<li>[ ] 不把用户可控内容当作高优先级规则</li>
+<li>[ ] 对 prompt injection 有基本防护</li>
+<li>[ ] 输出不会泄露内部规则或敏感信息</li>
+</ul>
+    </main>
+    <footer class="footer">Built for developers learning production AI application engineering.</footer>
+  </body>
+</html>

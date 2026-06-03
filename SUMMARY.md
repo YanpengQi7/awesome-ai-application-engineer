@@ -20,6 +20,8 @@
 - [Glossary](docs/10-glossary.md)
 - [FAQ](docs/11-faq.md)
 - [Tutorials](tutorials/build-personal-knowledge-base/README.md)
+  - [个人知识库问答助手](tutorials/build-personal-knowledge-base/zh-CN.md)
+  - [Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/en.md)
 - [RAG Bad Cases](bad-cases/rag-bad-cases.md)
 - [Projects](projects/README.md)
 - [Examples](examples/README.md)

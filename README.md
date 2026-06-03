@@ -18,7 +18,7 @@
 
 - 新手从这里开始：[Start Here](docs/00-start-here.md)
 - 学习前的基础铺垫：[AI Application Foundations](docs/00-foundations.md)
-- 从 0 到 1 教程：[Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/README.md)
+- 从 0 到 1 教程：[中文](tutorials/build-personal-knowledge-base/zh-CN.md) / [English](tutorials/build-personal-knowledge-base/en.md)
 - 30 天学习任务：[30-Day Plan](checklists/30-day-plan.md)
 - RAG 上线检查：[RAG Production Checklist](checklists/rag-production-checklist.md)
 - RAG 失败案例库：[RAG Bad Cases](bad-cases/rag-bad-cases.md)
@@ -95,7 +95,7 @@ flowchart LR
 
 | 类型 | 内容 | 适合谁 |
 | --- | --- | --- |
-| 端到端教程 | [Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/README.md) | 想跟着做出第一个 RAG 项目的人 |
+| 端到端教程 | [个人知识库问答助手](tutorials/build-personal-knowledge-base/zh-CN.md) / [Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/en.md) | 想跟着做出第一个 RAG 项目的人 |
 | 上线清单 | [RAG Production Checklist](checklists/rag-production-checklist.md) | 正在把 RAG demo 推向生产的人 |
 | 安全清单 | [Agent Safety Checklist](checklists/agent-safety-checklist.md) | 正在设计工具调用和 Agent 的人 |
 | Prompt 清单 | [Prompt Review Checklist](checklists/prompt-review-checklist.md) | 想让 Prompt 更稳定、可评测的人 |
@@ -186,7 +186,7 @@ flowchart LR
 ## 怎么使用这个仓库
 
 1. 如果你是新手，从 [Start Here](docs/00-start-here.md) 和 [AI Application Foundations](docs/00-foundations.md) 开始。
-2. 如果你想跟着做项目，进入 [Build a Personal Knowledge Base Assistant](tutorials/build-personal-knowledge-base/README.md)。
+2. 如果你想跟着做项目，进入教程：[中文](tutorials/build-personal-knowledge-base/zh-CN.md) / [English](tutorials/build-personal-knowledge-base/en.md)。
 3. 如果你已经会调用模型 API，直接进入 [RAG](docs/03-rag.md) 和 [Agent](docs/04-agent.md)。
 4. 如果你想做作品集，优先完成 [Projects](projects/README.md) 中的 3 个项目，并使用 [AI App Architecture Template](templates/ai-app-architecture-template.md) 写清楚架构。
 5. 如果你要准备面试，把 [Interview](docs/09-interview.md)、[FAQ](docs/11-faq.md) 和 [RAG Bad Cases](bad-cases/rag-bad-cases.md) 过一遍。

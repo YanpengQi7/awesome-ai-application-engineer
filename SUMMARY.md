@@ -2,6 +2,7 @@
 
 - [首页](README.md)
 - [Roadmap](ROADMAP.md)
+- [30-Day Plan](checklists/30-day-plan.md)
 - [Start Here](docs/00-start-here.md)
 - [LLM Basics](docs/01-llm-basics.md)
 - [Prompt Engineering](docs/02-prompt-engineering.md)
@@ -15,5 +16,9 @@
 - [Glossary](docs/10-glossary.md)
 - [FAQ](docs/11-faq.md)
 - [Projects](projects/README.md)
+- [Examples](examples/README.md)
+  - [Minimal RAG](examples/minimal-rag/README.md)
+  - [Tool Calling](examples/tool-calling/README.md)
+  - [Minimal MCP Server](examples/minimal-mcp-server/README.md)
 - [Awesome AI Resources](resources/awesome-ai-resources.md)
 - [Contributing](CONTRIBUTING.md)

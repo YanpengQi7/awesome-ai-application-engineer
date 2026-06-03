@@ -2,11 +2,37 @@
 
 > 面向中文开发者的 AI 应用工程师学习路线：从 LLM 基础、Prompt、RAG、Agent、MCP 到上线部署。
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Language](https://img.shields.io/badge/language-中文-blue.svg)](README.md)
+[![Roadmap](https://img.shields.io/badge/roadmap-AI%20Application%20Engineer-purple.svg)](SUMMARY.md)
+
+**中文 AI 应用工程师路线图：从 LLM 到 RAG、Agent、MCP 和生产上线。**
+
 这个仓库是一份**新手也能读懂、工程师能直接上手、可以长期更新的 AI 应用开发学习库**。它不追求堆满链接，而是把学习路径、核心概念、项目实战、工程化经验和面试准备放在一起，帮助你从“会调用大模型 API”成长为能独立设计、开发、评测和部署 AI 应用的人。
 
 如果你不知道 AI 应用工程到底学什么，可以先记住这句话：
 
 > AI 应用工程师 = 会把大模型能力接入真实业务，并让它稳定、可控、可评测、可上线的人。
+
+## 快速入口
+
+- 新手从这里开始：[Start Here](docs/00-start-here.md)
+- 30 天学习任务：[30-Day Plan](checklists/30-day-plan.md)
+- 项目实战列表：[Projects](projects/README.md)
+- 最小代码示例：[Examples](examples/README.md)
+- 面试准备：[Interview](docs/09-interview.md)
+- 术语速查：[Glossary](docs/10-glossary.md)
+
+## 目录
+
+- [这个仓库解决什么问题](#这个仓库解决什么问题)
+- [适合谁](#适合谁)
+- [学习路线图](#学习路线图)
+- [学习路线](#学习路线)
+- [新手 30 天学习计划](#新手-30-天学习计划)
+- [项目实战](#项目实战)
+- [怎么使用这个仓库](#怎么使用这个仓库)
+- [更新计划](#更新计划)
 
 ## 这个仓库解决什么问题
 
@@ -30,6 +56,20 @@
 - 只想收藏资料、不打算做项目的人
 - 希望几天内学完所有 AI 工程知识的人
 
+## 学习路线图
+
+```mermaid
+flowchart LR
+    A["Start Here<br/>环境与基础概念"] --> B["LLM Basics<br/>Token、上下文、幻觉"]
+    B --> C["Prompt Engineering<br/>结构化指令与输出"]
+    C --> D["RAG<br/>文档问答与知识库"]
+    D --> E["Agent<br/>工具调用与任务执行"]
+    E --> F["MCP<br/>连接工具和数据源"]
+    F --> G["Evaluation<br/>评测集与质量回归"]
+    G --> H["Production<br/>部署、权限、成本、监控"]
+    H --> I["Projects<br/>作品集与面试"]
+```
+
 ## 学习路线
 
 | 阶段 | 目标 | 推荐内容 | 输出物 |
@@ -44,6 +84,14 @@
 | 7. Production | 部署、监控、缓存、权限、灰度和成本控制 | [Production](docs/07-production.md) | 可上线的 AI 应用 |
 | 8. AI Coding | 用 AI 工具提高开发效率 | [AI Coding](docs/08-ai-coding.md) | 一套个人 AI 编程工作流 |
 | 9. Interview | 准备 AI 应用工程面试 | [Interview](docs/09-interview.md) | 可讲清楚的项目经历 |
+
+## 最小代码示例
+
+| 示例 | 覆盖能力 | 入口 |
+| --- | --- | --- |
+| Minimal RAG | 文档切分、检索、基于上下文回答 | [examples/minimal-rag](examples/minimal-rag/README.md) |
+| Tool Calling | 工具 schema、函数调用、结果回填 | [examples/tool-calling](examples/tool-calling/README.md) |
+| Minimal MCP Server | MCP 工具定义、本地文件搜索 | [examples/minimal-mcp-server](examples/minimal-mcp-server/README.md) |
 
 ## 新手 30 天学习计划
 
@@ -77,6 +125,8 @@
 ├── README.md
 ├── SUMMARY.md
 ├── ROADMAP.md
+├── checklists/
+│   └── 30-day-plan.md
 ├── docs/
 │   ├── 00-start-here.md
 │   ├── 01-llm-basics.md
@@ -92,6 +142,10 @@
 │   └── 11-faq.md
 ├── projects/
 │   └── README.md
+├── examples/
+│   ├── minimal-rag/
+│   ├── tool-calling/
+│   └── minimal-mcp-server/
 ├── resources/
 │   └── awesome-ai-resources.md
 ├── templates/

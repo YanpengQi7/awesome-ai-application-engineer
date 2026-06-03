@@ -1,4 +1,4 @@
-# AI Application Engineer Roadmap
+# Awesome AI Application Engineer
 
 > 面向中文开发者的 AI 应用工程师学习路线：从 LLM 基础、Prompt、RAG、Agent、MCP 到上线部署。
 

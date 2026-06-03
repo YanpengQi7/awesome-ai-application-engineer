@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Build a Personal Knowledge Base Assistant</title>
+    <link rel="stylesheet" href="../../assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="../../">Awesome AI Application Engineer</a>
+        <div class="nav-links">
+          <a href="zh-CN.html">中文</a>
+          <a href="https://github.com/YanpengQi7/awesome-ai-application-engineer">GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="article">
+      <h1>Build a Personal Knowledge Base Assistant</h1>
+      <div class="lang-switch">
+        <a class="pill" href="zh-CN.html">中文</a>
+        <span class="pill active">English</span>
+      </div>
+
+      <p>This tutorial walks you through building a personal knowledge base assistant from zero to one. The goal is not to stack frameworks. The goal is to understand the full RAG application flow from a user question to a grounded answer.</p>
+
+      <p>By the end, you should be able to explain how documents enter the system, why chunking is necessary, what embeddings and retrieval do, how prompts constrain the model to answer from evidence, how source citations work, and how evaluation helps you improve the system over time.</p>
+
+      <h2>Final Result</h2>
+      <p>After a user uploads or stores Markdown files, PDFs, or web notes, they can ask:</p>
+      <pre><code>In my 30-day AI learning plan, what should I do in week 2?</code></pre>
+      <p>The system returns:</p>
+      <pre><code>Week 2 should focus on RAG basics, including reading the RAG docs, preparing test documents, implementing chunking, retrieval, a minimal RAG flow, source citations, and 20 evaluation questions.
+
+Sources:
+- 30-day-plan.md / Week 2</code></pre>
+
+      <h2>Recommended Stack</h2>
+      <table>
+        <tr><th>Module</th><th>Recommendation</th></tr>
+        <tr><td>Language</td><td>Python</td></tr>
+        <tr><td>API service</td><td>FastAPI</td></tr>
+        <tr><td>Local storage</td><td>SQLite</td></tr>
+        <tr><td>Vector search</td><td>Start with in-memory or SQLite, then move to pgvector/Qdrant</td></tr>
+        <tr><td>Document format</td><td>Support Markdown first, then PDF</td></tr>
+        <tr><td>Evaluation</td><td>CSV/JSON + a simple scoring script</td></tr>
+      </table>
+
+      <h2>Overall Architecture</h2>
+      <pre><code>User question
+  -> Backend API
+  -> Query rewrite
+  -> Retrieve relevant chunks
+  -> Build prompt
+  -> Call model
+  -> Parse answer and citations
+  -> Log result and feedback</code></pre>
+
+      <p>Offline indexing flow:</p>
+      <pre><code>Document ingest
+  -> Document parsing
+  -> Text cleanup
+  -> Chunking
+  -> Generate embeddings
+  -> Store chunks + metadata + vectors</code></pre>
+
+      <h2>Step 1: Make a Minimal Chat Call</h2>
+      <p>Do not start with a knowledge base. First verify that your model API call works. You should be able to store the API key in an environment variable, send a user question, print the model answer, and record latency and errors.</p>
+      <ul>
+        <li>The API key is not hardcoded</li>
+        <li>Failures show useful error messages</li>
+        <li>Outputs can be logged</li>
+      </ul>
+
+      <h2>Step 2: Read a Local Document</h2>
+      <p>Start with Markdown files. Read a file, then put its content and the user question into the prompt.</p>
+      <pre><code>You are a personal knowledge base assistant. Answer only from the material below.
+
+Material:
+{document_text}
+
+User question:
+{question}
+
+If the material does not contain the answer, say "I could not find the answer in the provided material."</code></pre>
+      <p>This step will quickly run into context length limits, so you should not keep sending the entire document to the model.</p>
+
+      <h2>Step 3: Implement Chunking</h2>
+      <p>A chunk is a smaller section of a document. Beginners can start with a simple strategy:</p>
+      <ul>
+        <li>Split Markdown by headings when possible</li>
+        <li>Keep each chunk around 500 to 1,000 Chinese characters, or roughly 300 to 700 English words</li>
+        <li>Keep a small overlap between neighboring chunks</li>
+        <li>Store title, source, section, and chunk_id for every chunk</li>
+      </ul>
+      <pre><code>{
+  "chunk_id": "30-day-plan#week-2#001",
+  "title": "30-Day Plan",
+  "source": "checklists/30-day-plan.md",
+  "section": "Week 2: RAG Basics",
+  "text": "Day 8: Read the RAG docs..."
+}</code></pre>
+
+      <h2>Step 4: Start with Keyword Retrieval</h2>
+      <p>Before adding vector search, build a keyword retrieval version. It is not fancy, but it helps you understand the retrieval flow. Take a user question as input, match keywords against chunk text and titles, return top-k chunks, and put those chunks into the prompt.</p>
+
+      <h2>Step 5: Add Embeddings and Vector Retrieval</h2>
+      <p>Embeddings convert text into vectors so you can perform semantic similarity search.</p>
+      <pre><code>chunk text -> embedding model -> vector -> store
+question -> embedding model -> query vector -> similarity search -> top-k chunks</code></pre>
+      <ul>
+        <li>Regenerate embeddings when a chunk changes</li>
+        <li>Store the embedding model name and version</li>
+        <li>Keep chunk metadata for filtering and citations</li>
+        <li>Log similarity scores for debugging</li>
+      </ul>
+
+      <h2>Step 6: Build the RAG Prompt</h2>
+      <p>Treat retrieved chunks as available evidence. Do not let the model freely invent answers.</p>
+      <pre><code>You are a personal knowledge base assistant.
+
+Rules:
+- Answer only from the available material
+- Do not invent information that is not in the material
+- Cite sources for every important claim
+- If the material is insufficient, explain what is missing
+
+Available material:
+{retrieved_chunks}
+
+User question:
+{question}
+
+Output format:
+Answer:
+{answer}
+
+Sources:
+- {source title} / {section}</code></pre>
+
+      <h2>Step 7: Add Source Citations</h2>
+      <p>Citations are not decoration. They are the trust layer of a RAG system. Each answer should trace back to the document name, section or page, chunk_id, and source snippet.</p>
+      <pre><code>{
+  "answer": "string",
+  "sources": [
+    {
+      "title": "30-Day Plan",
+      "source": "checklists/30-day-plan.md",
+      "section": "Week 2",
+      "chunk_id": "30-day-plan#week-2#001",
+      "score": 0.82
+    }
+  ]
+}</code></pre>
+
+      <h2>Step 8: Handle Unanswerable Questions</h2>
+      <p>When the material is insufficient, the system should refuse to answer or clearly state what is missing. Common refusal conditions include low retrieval scores, unrelated retrieved chunks, no direct answer in the material, or a user request outside the knowledge base scope.</p>
+      <pre><code>I could not find a clear answer in the provided material. The retrieved content is mostly about the RAG learning plan and does not include deployment cost information.</code></pre>
+
+      <h2>Step 9: Build a Minimal Evaluation Set</h2>
+      <p>Prepare 30 questions: 15 with clear answers in the material, 5 that require combining multiple chunks, 5 that should be refused, and 5 historical bad cases.</p>
+      <pre><code>{
+  "id": "kb_001",
+  "question": "What should I learn in week 2?",
+  "expected_behavior": "Answer the RAG basics tasks and cite 30-day-plan",
+  "required_sources": ["checklists/30-day-plan.md"],
+  "tags": ["rag", "easy"]
+}</code></pre>
+
+      <h2>Step 10: Check Before Launch</h2>
+      <ul>
+        <li>The API key is not in frontend code or Git history</li>
+        <li>Users can only access their own documents</li>
+        <li>Retrieval and answers are logged</li>
+        <li>Answers include citations</li>
+        <li>The system refuses when material is insufficient</li>
+        <li>Token usage, cost, and latency are tracked</li>
+        <li>There is a feedback path for bad cases</li>
+      </ul>
+      <p>For a more complete checklist, see the RAG Production Checklist in the GitHub repository.</p>
+
+      <h2>Common Iteration Directions</h2>
+      <table>
+        <tr><th>Problem</th><th>Optimization</th></tr>
+        <tr><td>Retrieval misses the answer</td><td>Improve chunking, metadata, and query rewrite</td></tr>
+        <tr><td>Retrieval finds evidence but the answer is wrong</td><td>Improve the prompt, citation checks, and refusal behavior</td></tr>
+        <tr><td>Citations are inaccurate</td><td>Store more precise metadata and restrict source usage</td></tr>
+        <tr><td>Cost is too high</td><td>Reduce top-k, compress context, cache embeddings</td></tr>
+        <tr><td>Latency is too high</td><td>Use async indexing, caching, and faster models</td></tr>
+      </table>
+
+      <h2>What You Should Deliver</h2>
+      <ul>
+        <li>A runnable RAG Q&A demo</li>
+        <li>A set of test documents</li>
+        <li>30 evaluation questions</li>
+        <li>A project README</li>
+        <li>A bad case log</li>
+        <li>An architecture diagram</li>
+      </ul>
+      <p>That is much more convincing than simply saying "I know RAG."</p>
+    </main>
+  </body>
+</html>

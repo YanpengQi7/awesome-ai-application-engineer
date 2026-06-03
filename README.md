@@ -1,9 +1,11 @@
 # Awesome AI Application Engineer
 
+[中文](README.md) | [English](README.en.md)
+
 > 面向中文开发者的 AI 应用工程师学习路线：从 LLM 基础、Prompt、RAG、Agent、MCP 到上线部署。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Language](https://img.shields.io/badge/language-中文-blue.svg)](README.md)
+[![Language](https://img.shields.io/badge/language-中文%20%7C%20English-blue.svg)](README.en.md)
 [![Roadmap](https://img.shields.io/badge/roadmap-AI%20Application%20Engineer-purple.svg)](SUMMARY.md)
 [![Website](https://img.shields.io/badge/Website-Online-2457ff.svg)](https://yanpengqi7.github.io/awesome-ai-application-engineer/)
 

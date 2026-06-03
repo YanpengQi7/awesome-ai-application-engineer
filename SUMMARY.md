@@ -1,6 +1,7 @@
 # Summary
 
 - [首页](README.md)
+- [Home English](README.en.md)
 - [Roadmap](ROADMAP.md)
 - [30-Day Plan](checklists/30-day-plan.md)
 - [RAG Production Checklist](checklists/rag-production-checklist.md)

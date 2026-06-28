@@ -11,6 +11,10 @@
 3. 做项目时查向量数据库、部署和评测工具。
 4. 遇到具体问题再看论文和深度文章。
 
+## 中文系统学习资源
+
+- AI全书阅读指导: https://aibook.ren/reading-guidance
+
 ## 官方文档
 
 - OpenAI Platform Docs: https://platform.openai.com/docs
